@@ -1,5 +1,7 @@
 #include <iostream>
 #include <algorithm>
+#include <string>
+#include <fstream>
 #include <vector>
 #include <map>
 using namespace std;
@@ -9,9 +11,9 @@ int mem[MEMORY_SIZE];
 int reg[32];
 int pc = 0;
 
-map<string, int> reg_to_num = {{"zero", 0}, {"ra", 1}, {"sp", 2}, {"gp", 3}, {"tp", 4}, {"t0", 5}, {"t1", 6}, {"t2", 7}, 
-                               {"s0", 8}, {"s1", 9}, {"a0", 10}, {"a1", 11}, {"a2", 12}, {"a3", 13}, {"a4", 14}, {"a5", 15}, 
-                               {"a6", 16}, {"a7", 17}, {"s2", 18}, {"s3", 19}, {"s4", 20}, {"s5", 21}, {"s6", 22}, {"s7", 23}, 
+map<string, int> reg_to_num = {{"zero", 0}, {"ra", 1}, {"sp", 2}, {"gp", 3}, {"tp", 4}, {"t0", 5}, {"t1", 6}, {"t2", 7},
+                               {"s0", 8}, {"s1", 9}, {"a0", 10}, {"a1", 11}, {"a2", 12}, {"a3", 13}, {"a4", 14}, {"a5", 15},
+                               {"a6", 16}, {"a7", 17}, {"s2", 18}, {"s3", 19}, {"s4", 20}, {"s5", 21}, {"s6", 22}, {"s7", 23},
                                {"s8", 24}, {"s9", 25}, {"s10", 26}, {"s11", 27}, {"t3", 28}, {"t4", 29}, {"t5", 30}, {"t6", 31}};
 
 bool isFound(vector<string> data, string target) {
@@ -39,9 +41,9 @@ void getInstruction(vector<string> &data) {
         } else if (instruction == r_type[3]) { // slt
             reg[rd] = (reg[rs1] < reg[rs2]) ? 1 : 0;
         } else if (instruction == r_type[4]) { // sltu (what is this!!)
-            reg[rd] = (abs(reg[rs1]) < abs(reg[rs2])) ? 1 : 0;
+            reg[rd] = ((unsigned int)reg[rs1] < (unsigned int)reg[rs2]) ? 1 : 0;
         } else if (instruction == r_type[5]) { // xor
-            reg[rd] = reg[rs1] ^ reg[rs2]; 
+            reg[rd] = reg[rs1] ^ reg[rs2];
         } else if (instruction == r_type[6]) { // srl
             reg[rd] = reg[rs1] >> reg[rs2];
         } else if (instruction == r_type[7]) { // sra (what is this!!)
@@ -52,8 +54,53 @@ void getInstruction(vector<string> &data) {
             reg[rd] = reg[rs1] & reg[rs2];
         }
 
-        if (rd == 0) reg[rd] = 0; 
-    } 
+        if (rd == 0) reg[rd] = 0;
+    }
+    
+    vector<string> i_type = {"addi", "slli","slti","sltiu","xori","srli","srai","ori", "andi", "jalr", "lb", "lbu", "lh", "lhu", "lw"};
+    
+    if (isFound(i_type, instruction)) {
+        int rd = getRegNumber(data[1]), rs1 = getRegNumber(data[2]), imm = stoi(data[3]);
+
+        if (instruction == i_type[0]) { // addi
+            reg[rd] = reg[rs1] + imm;
+        }else if (instruction == i_type[1]) { // slli
+            reg[rd] = reg[rs1] << imm;
+        } else if (instruction == i_type[2]) { // slti
+            reg[rd] = (reg[rs1] < imm) ? 1 : 0;
+        } else if (instruction == i_type[3]) { // sltiu (what is this!!)
+            reg[rd] = ((unsigned int)reg[rs1] < (unsigned int)imm) ? 1 : 0;
+        } else if (instruction == i_type[4]) { // xori
+            reg[rd] = reg[rs1] ^ imm;
+        } else if (instruction == i_type[5]) { // srli
+            reg[rd] = reg[rs1] >> imm;
+        } else if (instruction == i_type[6]) { // srai (what is this!!)
+            reg[rd] = reg[rs1] >> imm;
+        } else if (instruction == i_type[7]) { // ori
+            reg[rd] = reg[rs1] | imm;
+        } else if (instruction == i_type[8]) { // andi
+            reg[rd] = reg[rs1] & imm;
+            
+            
+            
+            
+        } else if (instruction == i_type[9]) { // jalr hena w ta7t lessa
+            pc = reg[rs1] + imm;
+        } else if (instruction == i_type[10]) { // lb
+            
+        } else if (instruction == i_type[11]) { // lbu
+            
+        } else if (instruction == i_type[12]) { // lh
+            
+        } else if (instruction == i_type[13]) { // lhu
+            
+        } else if (instruction == i_type[14]) { // lw
+            
+        }
+
+        if (rd == 0) reg[rd] = 0;
+    }
+    
 }
 
 
