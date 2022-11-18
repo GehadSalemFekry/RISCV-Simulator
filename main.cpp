@@ -25,6 +25,17 @@ int getRegNumber(string reg_name) {
     return reg_to_num[reg_name];
 }
 
+pair<int, int> getRegImm(string s) {
+    int imm, reg;
+    for (int i = 0; i < s.size(); i++) {
+        if (s[i] == '(') {
+            imm = stoi(s.substr(0, i));
+            reg = getRegNumber(s.substr(i + 1, s.size() - i - 2));
+        }
+    }
+    return {reg, imm};
+}
+
 void getInstruction(vector<string> &data) {
     string instruction = data[0];
 
@@ -40,7 +51,7 @@ void getInstruction(vector<string> &data) {
             reg[rd] = reg[rs1] << reg[rs2];
         } else if (instruction == r_type[3]) { // slt
             reg[rd] = (reg[rs1] < reg[rs2]) ? 1 : 0;
-        } else if (instruction == r_type[4]) { // sltu (what is this!!)
+        } else if (instruction == r_type[4]) { // sltu 
             reg[rd] = ((unsigned int)reg[rs1] < (unsigned int)reg[rs2]) ? 1 : 0;
         } else if (instruction == r_type[5]) { // xor
             reg[rd] = reg[rs1] ^ reg[rs2];
@@ -55,52 +66,94 @@ void getInstruction(vector<string> &data) {
         }
 
         if (rd == 0) reg[rd] = 0;
+        pc += 4;
     }
     
-    vector<string> i_type = {"addi", "slli","slti","sltiu","xori","srli","srai","ori", "andi", "jalr", "lb", "lbu", "lh", "lhu", "lw"};
-    
-    if (isFound(i_type, instruction)) {
+    vector<string> i_type_arithmetic = {"addi", "slli","slti","sltiu","xori","srli","srai","ori", "andi", "jalr"};
+    if (isFound(i_type_arithmetic, instruction)) {
         int rd = getRegNumber(data[1]), rs1 = getRegNumber(data[2]), imm = stoi(data[3]);
 
-        if (instruction == i_type[0]) { // addi
+        if (instruction == i_type_arithmetic[0]) { // addi
             reg[rd] = reg[rs1] + imm;
-        }else if (instruction == i_type[1]) { // slli
+        }else if (instruction == i_type_arithmetic[1]) { // slli
             reg[rd] = reg[rs1] << imm;
-        } else if (instruction == i_type[2]) { // slti
+        } else if (instruction == i_type_arithmetic[2]) { // slti
             reg[rd] = (reg[rs1] < imm) ? 1 : 0;
-        } else if (instruction == i_type[3]) { // sltiu (what is this!!)
+        } else if (instruction == i_type_arithmetic[3]) { // sltiu 
             reg[rd] = ((unsigned int)reg[rs1] < (unsigned int)imm) ? 1 : 0;
-        } else if (instruction == i_type[4]) { // xori
+        } else if (instruction == i_type_arithmetic[4]) { // xori
             reg[rd] = reg[rs1] ^ imm;
-        } else if (instruction == i_type[5]) { // srli
+        } else if (instruction == i_type_arithmetic[5]) { // srli
             reg[rd] = reg[rs1] >> imm;
-        } else if (instruction == i_type[6]) { // srai (what is this!!)
+        } else if (instruction == i_type_arithmetic[6]) { // srai (what is this!!)
             reg[rd] = reg[rs1] >> imm;
-        } else if (instruction == i_type[7]) { // ori
+        } else if (instruction == i_type_arithmetic[7]) { // ori
             reg[rd] = reg[rs1] | imm;
-        } else if (instruction == i_type[8]) { // andi
+        } else if (instruction == i_type_arithmetic[8]) { // andi
             reg[rd] = reg[rs1] & imm;
-            
-            
-            
-            
-        } else if (instruction == i_type[9]) { // jalr hena w ta7t lessa
+        } else if (instruction == i_type_arithmetic[9]) { // jalr hena w ta7t lessa
             pc = reg[rs1] + imm;
-        } else if (instruction == i_type[10]) { // lb
+
+
+        } 
+
+        if (rd == 0) reg[rd] = 0;
+    }
+
+    vector<string> i_type_load = {"lb", "lbu", "lh", "lhu", "lw"};
+    if (isFound(i_type_load, instruction)) {        
+        int rd = getRegNumber(data[1]), rs1, offset;
+        tie(rs1, offset) = getRegImm(data[2]);
+
+        if (instruction == i_type_load[0]) { // lb
             
-        } else if (instruction == i_type[11]) { // lbu
+        } else if (instruction == i_type_load[1]) { // lbu
             
-        } else if (instruction == i_type[12]) { // lh
+        } else if (instruction == i_type_load[2]) { // lh
             
-        } else if (instruction == i_type[13]) { // lhu
+        } else if (instruction == i_type_load[3]) { // lhu
             
-        } else if (instruction == i_type[14]) { // lw
+        } else if (instruction == i_type_load[4]) { // lw
             
         }
 
         if (rd == 0) reg[rd] = 0;
+        pc += 4;
     }
-    
+
+    vector<string> s_type = {"sb", "sh", "sw"};
+    if (isFound(s_type, instruction)) {        
+        int rs1 = getRegNumber(data[1]), rs2, offset;
+        tie(rs2, offset) = getRegImm(data[2]);
+
+        if (instruction == s_type[0]) { // sb 
+            mem[reg[rs2] + offset] = reg[rs1] & 0xFF; 
+        } else if (instruction == s_type[1]) { // sh
+            mem[reg[rs2] + offset] = reg[rs1] & 0xFF;
+            mem[reg[rs2] + offset + 1] = (reg[rs1] >> 8) & 0xFF;
+        } else if (instruction == s_type[2]) { // sw
+            mem[reg[rs2] + offset] = reg[rs1] & 0xFF;
+            mem[reg[rs2] + offset + 1] = (reg[rs1] >> 8) & 0xFF;
+            mem[reg[rs2] + offset + 2] = (reg[rs1] >> 16) & 0xFF;
+            mem[reg[rs2] + offset + 3] = (reg[rs1] >> 24) & 0xFF;
+        } 
+
+        pc += 4;
+    }
+
+    vector<string> u_type = {"lui", "auipc"};
+    if (isFound(u_type, instruction)) {
+        int rs1 = getRegNumber(data[1]), imm = stoi(data[2]);
+
+        if (instruction == u_type[0]) { // lui
+            reg[rs1] = (imm << 12);
+        } else if (instruction == u_type[1]) {// auipc
+            reg[rs1] = pc + (imm << 12);
+        }
+
+        if (rd == 0) reg[rd] = 0;
+        pc += 4;
+    }
 }
 
 
