@@ -4,6 +4,8 @@
 #include <map>
 using namespace std;
 
+const int MEMORY_SIZE = 4 * 1024 * 1024 * 1024; // Not sure of the number
+int mem[MEMORY_SIZE];
 int reg[32];
 int pc = 0;
 
@@ -51,7 +53,7 @@ void getInstruction(vector<string> &data) {
         }
 
         if (rd == 0) reg[rd] = 0; 
-    }
+    } 
 }
 
 
