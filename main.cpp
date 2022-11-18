@@ -1,4 +1,4 @@
- #include <iostream>
+#include <iostream>
 #include <algorithm>
 #include <string>
 #include <fstream>
@@ -6,8 +6,7 @@
 #include <map>
 using namespace std;
 
-const int MEMORY_SIZE = 4 * 1024 * 1024 * 1024; // Not sure of the number
-int mem[MEMORY_SIZE];
+map<int, int> mem;
 int reg[32];
 int pc = 0;
 
@@ -38,10 +37,11 @@ pair<int, int> getRegImm(string s) {
 
 void getInstruction(vector<string> &data) {
     string instruction = data[0];
+    int rd = getRegNumber(data[1]);
 
     vector<string> r_type = {"add", "sub", "sll", "slt", "sltu", "xor", "srl", "sra", "or", "and"};
     if (isFound(r_type, instruction)) {
-        int rd = getRegNumber(data[1]), rs1 = getRegNumber(data[2]), rs2 = getRegNumber(data[3]);
+        int rs1 = getRegNumber(data[2]), rs2 = getRegNumber(data[3]);
 
         if (instruction == r_type[0]) { // add
             reg[rd] = reg[rs1] + reg[rs2];
@@ -77,7 +77,7 @@ void getInstruction(vector<string> &data) {
     
     vector<string> i_type_arithmetic = {"addi", "slli","slti","sltiu","xori","srli","srai","ori", "andi", "jalr"};
     if (isFound(i_type_arithmetic, instruction)) {
-        int rd = getRegNumber(data[1]), rs1 = getRegNumber(data[2]), imm = stoi(data[3]);
+        int rs1 = getRegNumber(data[2]), imm = stoi(data[3]);
 
         if (instruction == i_type_arithmetic[0]) { // addi
             reg[rd] = reg[rs1] + imm;
@@ -106,8 +106,7 @@ void getInstruction(vector<string> &data) {
 
     vector<string> i_type_load = {"lb", "lbu", "lh", "lhu", "lw"};
     if (isFound(i_type_load, instruction)) {        
-        int rd = getRegNumber(data[1]), rs1, offset;
-        tie(rs1, offset) = getRegImm(data[2]);
+        int rs1, offset; tie(rs1, offset) = getRegImm(data[2]);
 
         if (instruction == i_type_load[0]) { // lb
             
@@ -148,7 +147,7 @@ void getInstruction(vector<string> &data) {
     if (isFound(SB_type, instruction)) {
         int rs1 = getRegNumber(data[1]), rs2 = getRegNumber(data[2]); 
         //string label = data[3];
-        long long counter;
+        long long counter; // we have to read labels and get the counter values
         if (instruction == SB_type[0]) {
             if (reg[rs1] == reg[rs2])
                 pc += counter;
@@ -166,7 +165,7 @@ void getInstruction(vector<string> &data) {
                 pc += counter;
         }
         else if (instruction == SB_type[4]) {
-            if (((reg[rs1] % long long(pow(2, 31))) + pow(2, 31) * (bool(reg[rs1] < 0))) < ((reg[rs2] % long long(pow(2, 31))) + pow(2, 31) * (bool(reg[rs2] < 0))))
+            if (((reg[rs1] % (long long)(pow(2, 31))) + pow(2, 31) * (bool(reg[rs1] < 0))) < ((reg[rs2] % (long long)(pow(2, 31))) + pow(2, 31) * (bool(reg[rs2] < 0))))
                 pc += counter;
         }
         
@@ -182,14 +181,11 @@ void getInstruction(vector<string> &data) {
             reg[rs1] = pc + (imm << 12);
         }
 
-        if (rd == 0) reg[rd] = 0;
         pc += 4;
     }
 
     if (rd == 0) reg[rd] = 0;  //__ overall for all calls
 }
-
-
 
 vector<string> separate(string line) {
     vector<string> words;
