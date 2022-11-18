@@ -1,4 +1,4 @@
-#include <iostream>
+ #include <iostream>
 #include <algorithm>
 #include <string>
 #include <fstream>
@@ -35,16 +35,23 @@ void getInstruction(vector<string> &data) {
         } else if (instruction == r_type[1]) { // sub
             reg[rd] = reg[rs1] - reg[rs2];
         } else if (instruction == r_type[2]) { // sll
-            reg[rd] = reg[rs1] << reg[rs2];
+            reg[rd] = reg[rs1] << reg[rs2];  
         } else if (instruction == r_type[3]) { // slt
             reg[rd] = (reg[rs1] < reg[rs2]) ? 1 : 0;
         } else if (instruction == r_type[4]) { // sltu (what is this!!)
             reg[rd] = ((unsigned int)reg[rs1] < (unsigned int)reg[rs2]) ? 1 : 0;
         } else if (instruction == r_type[5]) { // xor
             reg[rd] = reg[rs1] ^ reg[rs2];
-        } else if (instruction == r_type[6]) { // srl
-            reg[rd] = reg[rs1] >> reg[rs2];
-        } else if (instruction == r_type[7]) { // sra (what is this!!)
+        } else if (instruction == r_type[6]) { // srl  
+
+            if (reg[rs1] < 0 && reg[rs2]) {
+                reg[rd] = (long long)(pow(2, 32) + reg[rs1]) >> reg[rs2];
+                if (!reg[rd] && shift < 0)
+                    reg[rd] = pow(2, -reg[rs2]) - 1;
+            }
+            else reg[rd] = reg[rs1] >> reg[rs2];
+
+        } else if (instruction == r_type[7]) { // sra
             reg[rd] = reg[rs1] >> reg[rs2];
         } else if (instruction == r_type[8]) { // or
             reg[rd] = reg[rs1] | reg[rs2];
@@ -57,7 +64,7 @@ void getInstruction(vector<string> &data) {
     
     vector<string> i_type = {"addi", "slli","slti","sltiu","xori","srli","srai","ori", "andi", "jalr", "lb", "lbu", "lh", "lhu", "lw"};
     
-    if (isFound(i_type, instruction)) {
+    else if (isFound(i_type, instruction)) {
         int rd = getRegNumber(data[1]), rs1 = getRegNumber(data[2]), imm = stoi(data[3]);
 
         if (instruction == i_type[0]) { // addi
@@ -98,7 +105,36 @@ void getInstruction(vector<string> &data) {
 
         if (rd == 0) reg[rd] = 0;
     }
-    
+
+    vector<string> SB_type = {"BEQ", "BNE", "BLT", "BGE", "BLTU", "BGEU"};
+    else if (isFound(SB_type, instruction)) {
+        int rs1 = getRegNumber(data[1]), rs2 = getRegNumber(data[2]); 
+        //string label = data[3];
+        long long counter;
+        if (instruction == SB_type[0]) {
+            if (reg[rs1] == reg[rs2])
+                pc += counter;
+        }
+        else if (instruction == SB_type[1]) {
+            if (reg[rs1] != reg[rs2])
+                pc += counter;
+        }
+        else if (instruction == SB_type[2]) {
+            if (reg[rs1] < reg[rs2])
+                pc += counter;
+        }
+        else if (instruction == SB_type[3]) {
+            if (reg[rs1] >= reg[rs2])
+                pc += counter;
+        }
+        else if (instruction == SB_type[4]) {
+            if (((reg[rs1] % long long(pow(2, 31))) + pow(2, 31) * (bool(reg[rs1] < 0))) < ((reg[rs2] % long long(pow(2, 31))) + pow(2, 31) * (bool(reg[rs2] < 0))))
+                pc += counter;
+        }
+        
+    }
+
+    if (rd == 0) reg[rd] = 0;  //__ overall for all calls
 }
 
 
