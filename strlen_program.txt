@@ -1,0 +1,10 @@
+addi a0, zero, 1000
+strlen: addi t0, a0, 0
+        addi t2, zero, 0
+Loop:   lb t0, 0(t0)
+        beq  t0, zero, Break
+        addi t2, t2, 1
+        addi t0, t0, 1
+        jal  zero, Loop
+Break:  addi a0, t0, 0
+        jalr zero
