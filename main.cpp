@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cmath>
 #include <algorithm>
 #include <string>
 #include <fstream>
@@ -48,14 +49,14 @@ void getInstruction(vector<string> &data) {
         } else if (instruction == r_type[1]) { // sub
             reg[rd] = reg[rs1] - reg[rs2];
         } else if (instruction == r_type[2]) { // sll
-            reg[rd] = reg[rs1] << reg[rs2];  
+            reg[rd] = reg[rs1] << reg[rs2];
         } else if (instruction == r_type[3]) { // slt
             reg[rd] = (reg[rs1] < reg[rs2]) ? 1 : 0;
-        } else if (instruction == r_type[4]) { // sltu 
+        } else if (instruction == r_type[4]) { // sltu
             reg[rd] = ((unsigned int)reg[rs1] < (unsigned int)reg[rs2]) ? 1 : 0;
         } else if (instruction == r_type[5]) { // xor
             reg[rd] = reg[rs1] ^ reg[rs2];
-        } else if (instruction == r_type[6]) { // srl  
+        } else if (instruction == r_type[6]) { // srl
 
             if (reg[rs1] < 0 && reg[rs2]) {
                 reg[rd] = (long long)(pow(2, 32) + reg[rs1]) >> reg[rs2];
@@ -85,7 +86,7 @@ void getInstruction(vector<string> &data) {
             reg[rd] = reg[rs1] << imm;
         } else if (instruction == i_type_arithmetic[2]) { // slti
             reg[rd] = (reg[rs1] < imm) ? 1 : 0;
-        } else if (instruction == i_type_arithmetic[3]) { // sltiu 
+        } else if (instruction == i_type_arithmetic[3]) { // sltiu
             reg[rd] = ((unsigned int)reg[rs1] < (unsigned int)imm) ? 1 : 0;
         } else if (instruction == i_type_arithmetic[4]) { // xori
             reg[rd] = reg[rs1] ^ imm;
@@ -101,7 +102,7 @@ void getInstruction(vector<string> &data) {
             pc = reg[rs1] + imm;
 
 
-        } 
+        }
     }
 
     vector<string> i_type_load = {"lb", "lbu", "lh", "lhu", "lw"};
@@ -109,27 +110,27 @@ void getInstruction(vector<string> &data) {
         int rs1, offset; tie(rs1, offset) = getRegImm(data[2]);
 
         if (instruction == i_type_load[0]) { // lb
-            
+            reg[rd] = (int32_t)(int8_t)mem[reg[rs1] + offset];
         } else if (instruction == i_type_load[1]) { // lbu
-            
+            reg[rd] = (uint32_t)mem[reg[rs1] + offset];
         } else if (instruction == i_type_load[2]) { // lh
-            
+            reg[rd] = (int32_t)((int16_t)mem[reg[rs1] + offset] | (mem[reg[rs1] + offset + 1] << 8));
         } else if (instruction == i_type_load[3]) { // lhu
-            
+            reg[rd] = (uint32_t)mem[reg[rs1] + offset] | (mem[reg[rs1] + offset + 1] << 8);
         } else if (instruction == i_type_load[4]) { // lw
-            
+            reg[rd] = mem[reg[rs1] + offset] | (mem[reg[rs1] + offset + 1] << 8) | (mem[reg[rs1] + offset + 2] << 16) | (mem[reg[rs1] + offset + 3] << 24);
         }
-
+        
         pc += 4;
     }
 
     vector<string> s_type = {"sb", "sh", "sw"};
-    if (isFound(s_type, instruction)) {        
+    if (isFound(s_type, instruction)) {
         int rs1 = getRegNumber(data[1]), rs2, offset;
         tie(rs2, offset) = getRegImm(data[2]);
 
-        if (instruction == s_type[0]) { // sb 
-            mem[reg[rs2] + offset] = reg[rs1] & 0xFF; 
+        if (instruction == s_type[0]) { // sb
+            mem[reg[rs2] + offset] = reg[rs1] & 0xFF;
         } else if (instruction == s_type[1]) { // sh
             mem[reg[rs2] + offset] = reg[rs1] & 0xFF;
             mem[reg[rs2] + offset + 1] = (reg[rs1] >> 8) & 0xFF;
@@ -138,14 +139,14 @@ void getInstruction(vector<string> &data) {
             mem[reg[rs2] + offset + 1] = (reg[rs1] >> 8) & 0xFF;
             mem[reg[rs2] + offset + 2] = (reg[rs1] >> 16) & 0xFF;
             mem[reg[rs2] + offset + 3] = (reg[rs1] >> 24) & 0xFF;
-        } 
+        }
 
         pc += 4;
     }
 
     vector<string> SB_type = {"BEQ", "BNE", "BLT", "BGE", "BLTU", "BGEU"};
     if (isFound(SB_type, instruction)) {
-        int rs1 = getRegNumber(data[1]), rs2 = getRegNumber(data[2]); 
+        int rs1 = getRegNumber(data[1]), rs2 = getRegNumber(data[2]);
         //string label = data[3];
         long long counter; // we have to read labels and get the counter values
         if (instruction == SB_type[0]) {
@@ -210,3 +211,4 @@ int main() {
 
     return 0;
 }
+
