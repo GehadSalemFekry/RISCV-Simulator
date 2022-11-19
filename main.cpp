@@ -25,7 +25,7 @@ bool isFound(vector<string> data, string target) {
 }
 
 string to_lower(string s) {
-    for (int i = 0; i < s.size(); i++) s[i] = tolower(s[i]);
+    for (int i = 0; i < s.size(); i++) if (isalpha(s[i])) s[i] = tolower(s[i]);
     return s;
 }
 
@@ -66,7 +66,7 @@ vector<string> separate(string line, int num) {
     vector<string> words;
     string a = "";
     for (int i = 0; i < line.size(); i++) {
-        if (line[i] != ' ' && line[i] != ',' && line[i] != ':') a += line[i];
+        if (line[i] != ' ' && line[i] != ',' && line[i] != ':' && line[i] != '\t') a += line[i];
         else if (a.size() > 0) {
             if (line[i] == ':')
                 labels[a] = num;
@@ -74,7 +74,8 @@ vector<string> separate(string line, int num) {
             a = "";
         }
     }
-    words.push_back(a);
+    if (a.size()) words.push_back(a);
+
     return words;
 }
 
@@ -99,7 +100,12 @@ void printContent() {
 }
 
 void getInstruction(vector<string> &data) {
+    //if (!data.size()) return;
+    cout <<"(" << data[0] << ")hereeeeee ya ....";
+    cout << to_lower(data[0]) << "\n";
     string instruction = to_lower(data[0]);
+    cout << instruction << "\n";
+    cout << "here1\n";
 
     vector<string> halt = {"ebreak", "ecall", "fence"}; // 3
     if (isFound(halt, instruction)) {
@@ -145,6 +151,8 @@ void getInstruction(vector<string> &data) {
         pc += 4;
     }
     
+    cout << "here2\n";
+
     vector<string> i_type_arithmetic = {"addi", "slli", "slti", "sltiu", "xori", "srli", "srai", "ori", "andi"}; // 9
     if (isFound(i_type_arithmetic, instruction)) {
         int rs1 = getRegNumber(data[2]), imm = stoi(data[3]);
@@ -178,6 +186,9 @@ void getInstruction(vector<string> &data) {
         pc += 4;
     }
 
+    cout << "here3\n";
+
+
     vector<string> i_type_load = {"lb", "lbu", "lh", "lhu", "lw", "jalr"}; // 5
     if (isFound(i_type_load, instruction)) {        
         int rs1, offset; tie(rs1, offset) = getRegImm(data[2]);
@@ -193,12 +204,14 @@ void getInstruction(vector<string> &data) {
         } else if (instruction == i_type_load[4]) { // lw
             reg[rd] = mem[reg[rs1] + offset] | (mem[reg[rs1] + offset + 1] << 8) | (mem[reg[rs1] + offset + 2] << 16) | (mem[reg[rs1] + offset + 3] << 24);
         } else if (instruction == i_type_load[5]) { // jalr
+            //cout << offset << " " << reg[rs1] << " " << pc << "\n";
             reg[rd] = pc + 4;
             pc = reg[rs1] + offset;
         }
-        
-        pc += 4;
+        if (instruction != i_type_load[5]) pc += 4;
     }
+
+    cout << "here4\n";
 
     vector<string> s_type = {"sb", "sh", "sw"}; // 3
     if (isFound(s_type, instruction)) {
@@ -219,6 +232,7 @@ void getInstruction(vector<string> &data) {
 
         pc += 4;
     }
+    cout << "here5\n";
 
     vector<string> sb_type = {"beq", "bne", "blt", "bge", "bltu", "bgeu"}; // 6
     if (isFound(sb_type, instruction)) {
@@ -228,30 +242,37 @@ void getInstruction(vector<string> &data) {
         if (instruction == sb_type[0]) { // beq
             if (reg[rs1] == reg[rs2])
                 pc += counter;
+            else pc += 4;
         }
         else if (instruction == sb_type[1]) { // bne
             if (reg[rs1] != reg[rs2])
                 pc += counter;
+            else pc += 4;
         }
         else if (instruction == sb_type[2]) { // blt
             if (reg[rs1] < reg[rs2])
                 pc += counter;
+            else pc += 4;
         }
         else if (instruction == sb_type[3]) { // bge
             if (reg[rs1] >= reg[rs2])
                 pc += counter;
+            else pc += 4;
         }
         else if (instruction == sb_type[4]) { // bltu
             //if ((reg[rs1] % (1LL << 31)) + ((1LL << 31) * (reg[rs1] < 0)) < (reg[rs2] % (1LL << 31)) + ((1LL << 31) * reg[rs2] < 0))
             if ((unsigned int)reg[rs1] < (unsigned int)reg[rs2])
                 pc += counter;
+            else pc += 4;
         }
-        else if (instruction == sb_type[4]) { // bgeu
+        else if (instruction == sb_type[5]) { // bgeu
             if ((unsigned int)reg[rs1] >= (unsigned int)reg[rs2])
                 pc += counter;
+            else pc += 4;
         }
-        else pc += 4;       
     }
+    cout << "here6\n";
+
 
     vector<string> u_type = {"lui", "auipc"}; // 3
     if (isFound(u_type, instruction)) {
@@ -266,10 +287,20 @@ void getInstruction(vector<string> &data) {
         } 
     }
 
+    cout << "here777777\n";
+
     if (instruction == "jal") { // jal
+        cout << "here - ya rab ne5las\n";
+
         int counter = labels[data[2]] - pc;
+        cout << counter << " " << labels[data[2]] << " " << pc << "\n";
+
         reg[rd] = pc + 4;
+        cout << counter << " " << labels[data[2]] << " " << pc << "\n";
+
         pc += counter;
+        cout << counter << " " << labels[data[2]] << " " << pc << "\n";
+
     }
 
 
@@ -281,8 +312,10 @@ void getInstruction(vector<string> &data) {
 int main() {
     ifstream fin_data, fin_prog;
 
-    fin_data.open("sort_data.txt");
-    fin_prog.open("sort_program.txt"); // We can have it user input
+    fin_data.open("fibonacci_data.txt");
+    fin_prog.open("fibonacci_program.txt"); // We can have it user input
+
+    freopen("fibonacci_output.txt", "w", stdout);
 
     int address, data;
 
@@ -300,7 +333,10 @@ int main() {
     //storing the program and initializing the labels vector with the addresses without excuting any instruction
     int init_add = pc;
     while (getline(fin_prog, line)) {
+        cout << line << "\n";
         program[init_add] = separate(line, init_add);
+        for (auto u : program[init_add]) cout << u << " ";
+        cout << "\n";
         init_add += 4;
     }
 
@@ -310,6 +346,7 @@ int main() {
     //looping on the program instructions to excute them
     int end = 4 * program.size() + pc;
     while (pc < end) {
+        for (auto u : program[pc]) cout << u << " ";
         getInstruction(program[pc]);
     }
 
