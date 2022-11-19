@@ -223,7 +223,7 @@ void getInstruction(vector<string> &data) {
     vector<string> sb_type = {"beq", "bne", "blt", "bge", "bltu", "bgeu"}; // 6
     if (isFound(sb_type, instruction)) {
         int rs1 = rd, rs2 = getRegNumber(data[2]);
-        int counter = labels[data[3]] - pc;  // we have to read labels and get the counter values - To be fixed ------------- MARIO -------------------
+        int counter = labels[data[3]] - pc;  
 
         if (instruction == sb_type[0]) { // beq
             if (reg[rs1] == reg[rs2])
@@ -281,8 +281,8 @@ void getInstruction(vector<string> &data) {
 int main() {
     ifstream fin_data, fin_prog;
 
-    fin_data.open("data.txt");
-    fin_prog.open("program.txt"); // We can have it user input
+    fin_data.open("sort_data.txt");
+    fin_prog.open("sort_program.txt"); // We can have it user input
 
     int address, data;
 
@@ -315,13 +315,3 @@ int main() {
 
     return 0;
 }
-
-
-
-//Gehad erased
-/* while (getline(fin_prog, line)) {
-        vector<string> data = separate(line, 0);  //meaningless zero
-        getInstruction(data);
-        printContent();
-    }
-*/

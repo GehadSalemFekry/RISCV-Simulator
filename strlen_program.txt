@@ -8,3 +8,4 @@ Loop:   lb t0, 0(t0)
         jal  zero, Loop
 Break:  addi a0, t0, 0
         jalr zero
+fence
