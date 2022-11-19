@@ -120,8 +120,8 @@ void getInstruction(vector<string> &data) {
 
             if (reg[rs1] < 0 && reg[rs2]) { // To be fixed ------------- MARIO -------------------
                 reg[rd] = (long long)(pow(2, 32) + reg[rs1]) >> reg[rs2];
-                // if (!reg[rd] && shift < 0) // what is shift??
-                //     reg[rd] = pow(2, -reg[rs2]) - 1;
+                if (!reg[rd] && reg[rs2] < 0) // what is shift?? I think it was reg[rs2], but confirm it --------- MARIO ----------
+                    reg[rd] = pow(2, -reg[rs2]) - 1;
             }
             else reg[rd] = reg[rs1] >> reg[rs2];
 
@@ -266,6 +266,8 @@ int main() {
     fin_prog.open("program.txt"); // We can have it user input
 
     int address, data;
+
+    fin_data >> pc;
     while (fin_data >> address >> data) { // store byte by byte in the memory
         mem[address] = data & 0xFF;
         mem[address + 1] = (data >> 8) & 0xFF;
