@@ -7,9 +7,13 @@
 #include <map>
 using namespace std;
 
+//Replace pow(2,32) with a const int value to reduce complexity in every function
+//boolean found to check that this is even an instruction, so make it true when you get into a family.
+//*if it was not found then cout "error in line _"
 map<int, int> mem;
 int reg[32];
 int pc = 0;
+map<string, int> labels;
 
 map<string, int> reg_to_num = {{"zero", 0}, {"ra", 1}, {"sp", 2}, {"gp", 3}, {"tp", 4}, {"t0", 5}, {"t1", 6}, {"t2", 7},
                                {"s0", 8}, {"s1", 9}, {"a0", 10}, {"a1", 11}, {"a2", 12}, {"a3", 13}, {"a4", 14}, {"a5", 15},
@@ -58,12 +62,17 @@ pair<int, int> getRegImm(string s) {
     return {reg, imm};
 }
 
-vector<string> separate(string line) {
+vector<string> separate(string line, int num) {
     vector<string> words;
     string a = "";
     for (int i = 0; i < line.size(); i++) {
-        if (line[i] != ' ' && line[i] != ',') a += line[i];
-        else if (a.size() > 0) words.push_back(a), a = "";
+        if (line[i] != ' ' && line[i] != ',' && line[i] != ':') a += line[i];
+        else if (a.size() > 0) {
+            if (line[i] == ':')
+                labels[a] = num;
+            else words.push_back(a);
+            a = "";
+        }
     }
     words.push_back(a);
     return words;
@@ -112,16 +121,16 @@ void getInstruction(vector<string> &data) {
             reg[rd] = reg[rs1] << reg[rs2];
         } else if (instruction == r_type[3]) { // slt
             reg[rd] = (reg[rs1] < reg[rs2]) ? 1 : 0;
-        } else if (instruction == r_type[4]) { // sltu
+        } else if (instruction == r_type[4]) { // sltu 
             reg[rd] = ((unsigned int)reg[rs1] < (unsigned int)reg[rs2]) ? 1 : 0;
         } else if (instruction == r_type[5]) { // xor
             reg[rd] = reg[rs1] ^ reg[rs2];
         } else if (instruction == r_type[6]) { // srl
 
-            if (reg[rs1] < 0 && reg[rs2]) { // To be fixed ------------- MARIO -------------------
+            if (reg[rs1] < 0 && reg[rs2]) { // To be fixed  //Fixed
                 reg[rd] = (long long)(pow(2, 32) + reg[rs1]) >> reg[rs2];
-                // if (!reg[rd] && shift < 0) // what is shift??
-                //     reg[rd] = pow(2, -reg[rs2]) - 1;
+                if (!reg[rd] && reg[rs2] < 0)
+                    reg[rd] = pow(2, -reg[rs2]) - 1;
             }
             else reg[rd] = reg[rs1] >> reg[rs2];
 
@@ -150,9 +159,15 @@ void getInstruction(vector<string> &data) {
             reg[rd] = ((unsigned int)reg[rs1] < (unsigned int)imm) ? 1 : 0;
         } else if (instruction == i_type_arithmetic[4]) { // xori
             reg[rd] = reg[rs1] ^ imm;
-        } else if (instruction == i_type_arithmetic[5]) { // srli
-            reg[rd] = reg[rs1] >> imm;
-        } else if (instruction == i_type_arithmetic[6]) { // srai - To be fixed ------------- MARIO -------------------
+        } else if (instruction == i_type_arithmetic[5]) { // srli  //Fixed
+            if (reg[rs1] < 0 && imm) {
+                reg[rd] = (long long)(pow(2, 32) + reg[rs1]) >> imm;
+                if (!reg[rd] && imm < 0)
+                    reg[rd] = pow(2, -imm) - 1; 
+            }
+            else reg[rd] = reg[rs1] >> imm;
+
+        } else if (instruction == i_type_arithmetic[6]) { // srai  //Correct
             reg[rd] = reg[rs1] >> imm;
         } else if (instruction == i_type_arithmetic[7]) { // ori
             reg[rd] = reg[rs1] | imm;
@@ -206,41 +221,39 @@ void getInstruction(vector<string> &data) {
     }
 
     vector<string> sb_type = {"beq", "bne", "blt", "bge", "bltu", "bgeu"}; // 6
-
-    /*
-        The user should also specify the program starting address (where the
-        program’s first instruction should be loaded in the memory).
-
-        This would affect the labeling part.
-    */
     if (isFound(sb_type, instruction)) {
-        int rs1 = getRegNumber(data[1]), rs2 = getRegNumber(data[2]);
-        //string label = data[3]; 
-        long long counter; // we have to read labels and get the counter values - To be fixed ------------- MARIO -------------------
+        int rs1 = rd, rs2 = getRegNumber(data[2]);
+        int counter = labels[data[3]] - pc;  // we have to read labels and get the counter values - To be fixed ------------- MARIO -------------------
 
-        if (instruction == sb_type[0]) {
+        if (instruction == sb_type[0]) { // beq
             if (reg[rs1] == reg[rs2])
                 pc += counter;
         }
-        else if (instruction == sb_type[1]) {
+        else if (instruction == sb_type[1]) { // bne
             if (reg[rs1] != reg[rs2])
                 pc += counter;
         }
-        else if (instruction == sb_type[2]) {
+        else if (instruction == sb_type[2]) { // blt
             if (reg[rs1] < reg[rs2])
                 pc += counter;
         }
-        else if (instruction == sb_type[3]) {
+        else if (instruction == sb_type[3]) { // bge
             if (reg[rs1] >= reg[rs2])
                 pc += counter;
         }
-        else if (instruction == sb_type[4]) { // 3adeltha 5ashan el satr kan tawil sika (sorryy)
-            if ((reg[rs1] % (1LL << 31)) + ((1LL << 31) * (reg[rs1] < 0)) < (reg[rs2] %  (1LL << 31)) + ((1LL << 31) * reg[rs2] < 0))
+        else if (instruction == sb_type[4]) { // bltu
+            //if ((reg[rs1] % (1LL << 31)) + ((1LL << 31) * (reg[rs1] < 0)) < (reg[rs2] % (1LL << 31)) + ((1LL << 31) * reg[rs2] < 0))
+            if ((unsigned int)reg[rs1] < (unsigned int)reg[rs2])
                 pc += counter;
         }
+        else if (instruction == sb_type[4]) { // bgeu
+            if ((unsigned int)reg[rs1] >= (unsigned int)reg[rs2])
+                pc += counter;
+        }
+        else pc += 4;       
     }
 
-    vector<string> u_type = {"lui", "auipc", "jal"}; // 3
+    vector<string> u_type = {"lui", "auipc"}; // 3
     if (isFound(u_type, instruction)) {
         int imm = stoi(data[2]);
 
@@ -250,13 +263,19 @@ void getInstruction(vector<string> &data) {
         } else if (instruction == u_type[1]) { // auipc
             reg[rd] = pc + (imm << 12);
             pc += 4;
-        } else if (instruction == u_type[2]) { // jal
-            reg[rd] = pc + 4;
-            pc += imm;
-        }
+        } 
     }
 
+    if (instruction == "jal") { // jal
+        int counter = labels[data[2]] - pc;
+        reg[rd] = pc + 4;
+        pc += counter;
+    }
+
+
     if (rd == 0) reg[rd] = 0;  //__ overall for all calls
+
+    printContent();
 }
 
 int main() {
@@ -266,7 +285,7 @@ int main() {
     fin_prog.open("program.txt"); // We can have it user input
 
     int address, data;
-    while (fin_data >> address >> data) { // store byte by byte in the memory
+    while (fin_data >> address >> data) { // store byte by byte in the memory  //initialize the pc here
         mem[address] = data & 0xFF;
         mem[address + 1] = (data >> 8) & 0xFF;
         mem[address + 2] = (data >> 16) & 0xFF;
@@ -274,14 +293,33 @@ int main() {
     }
 
     string line;
+    map<int, vector<string>> program;
+
+    //storing the program and initializing the labels vector with the addresses without excuting any instruction
+    int init_add = pc;
     while (getline(fin_prog, line)) {
-        vector<string> data = separate(line);
-        getInstruction(data);
-        printContent();
+        program[init_add] = separate(line, init_add);
+        init_add += 4;
     }
 
     fin_data.close();
     fin_prog.close();
+
+    //looping on the program instructions to excute them
+    int end = 4 * program.size() + pc;
+    while (pc < end) {
+        getInstruction(program[pc]);
+    }
+
     return 0;
 }
 
+
+
+//Gehad erased
+/* while (getline(fin_prog, line)) {
+        vector<string> data = separate(line, 0);  //meaningless zero
+        getInstruction(data);
+        printContent();
+    }
+*/
