@@ -312,10 +312,10 @@ void getInstruction(vector<string> &data) {
 int main() {
     ifstream fin_data, fin_prog;
 
-    fin_data.open("fibonacci_data.txt");
-    fin_prog.open("fibonacci_program.txt"); // We can have it user input
+    fin_data.open("strlen_data.txt");
+    fin_prog.open("strlen_program.txt"); // We can have it user input
 
-    freopen("fibonacci_output.txt", "w", stdout);
+    freopen("strlen_output.txt", "w", stdout);
 
     int address, data;
 
