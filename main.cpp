@@ -80,41 +80,43 @@ vector<string> separate(string line, int num) {
 }
 
 void printContent() {
-    cout << "Program Counter: ";
-    if (type == 2) cout << decimalToHexa(pc) << "\n";
-    else if (type == 3) cout << decimalToBase(pc) << "\n";
-    else cout << pc << "\n";
+    fout << "Program Counter: ";
+    if (type == 2) fout << decimalToHexa(pc) << "\n";
+    else if (type == 3) fout << decimalToBase(pc) << "\n";
+    else fout << pc << "\n";
 
-    cout << "--------------------- Registers Content: ----------------------\n"; 
+    fout << "--------------------- Registers Content: ----------------------\n"; 
     int i = 0;
 
     map<int, string> rev_reg;
     for (auto u : reg_to_num) rev_reg[u.second] = u.first;
     for (int i = 0; i < 32; i++) {
-        cout << "x" << i << " (" << rev_reg[i] << "): ";
-        if (type == 2) cout << decimalToHexa(reg[i]) << "\t";
-        else if (type == 3) cout << decimalToBase(reg[i]) << "\t";
-        else cout << reg[i] << "\t";
-        if ((i + 1) % 4 == 0) cout << "\n";
+        fout << "x" << i << " (" << rev_reg[i] << "): ";
+        if (type == 2) fout << decimalToHexa(reg[i]) << "\t";
+        else if (type == 3) fout << decimalToBase(reg[i]) << "\t";
+        else fout << reg[i] << "\t";
+        if ((i + 1) % 4 == 0) fout << "\n";
     }
     fout << "\n";
     fout << "---------------------- Memory Content: ------------------------\n";
 
     i = 0;
     for (auto u : mem) {
-        cout << u.first << ": ";
-        if (type == 2) cout << decimalToHexa(u.second) << "\t";
-        else if (type == 3) cout << decimalToBase(u.second) << "\t";
-        else cout << u.second << "\t";
+        fout << u.first << ": ";
+        if (type == 2) fout << decimalToHexa(u.second) << "\t";
+        else if (type == 3) fout << decimalToBase(u.second) << "\t";
+        else fout << u.second << "\t";
         i++;
-        if (i % 8 == 0) cout << "\n";
+        if (i % 8 == 0) fout << "\n";
     }
     fout << "\n---------------------------------------------------------------\n\n";
 }
 
 void getInstruction(vector<string> &data) {
     string instruction = to_lower(data[0]);
-    fout << instruction << "\n";
+    fout << "Instruction: ";
+    for (auto u : data) fout << u << " ";
+    fout << "\n";
 
     vector<string> halt = {"ebreak", "ecall", "fence"}; // 3
     if (isFound(halt, instruction)) {
