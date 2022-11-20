@@ -1,0 +1,17 @@
+addi a0, zero, 1000
+addi a1, zero, 4
+jal ra, max
+beq zero, zero, Exit
+max:    lw t0, 0(a0) 
+	addi t1, zero, 1 
+for:    bge t1, a1, l1
+	slli t2, t1, 2
+	add t3, a0, t2
+	lw t4,0(t3)
+	bge t0, t4, l2
+	add t0, zero, t4
+l2:     addi t1, t1, 1
+	beq zero, zero, for
+l1:     add a0, zero, t0
+	jalr zero, 0(ra)
+Exit:EBREAK

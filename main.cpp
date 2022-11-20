@@ -11,6 +11,8 @@ using namespace std;
 //Replace pow(2,32) with a const int value to reduce complexity in every function
 //boolean found to check that this is even an instruction, so make it true when you get into a family.
 //*if it was not found then cout "error in line _"
+
+//initialize sp and gp
 map<int, int> mem;
 int reg[32];
 int pc = 0;
@@ -165,6 +167,7 @@ void getInstruction(vector<string> &data) {
 
     vector<string> i_type_arithmetic = {"addi", "slli", "slti", "sltiu", "xori", "srli", "srai", "ori", "andi"}; // 9
     if (isFound(i_type_arithmetic, instruction)) {
+        
         int rs1 = getRegNumber(data[2]), imm = stoi(data[3]);
 
         if (instruction == i_type_arithmetic[0]) { // addi
@@ -322,8 +325,8 @@ void getInstruction(vector<string> &data) {
 int main() {
     ifstream fin_data, fin_prog;
 
-    fin_data.open("sort_data.txt");
-    fin_prog.open("sort_program.txt"); // We can have it user input
+    fin_data.open("max_data.txt");
+    fin_prog.open("max_program.txt"); // We can have it user input
 
     int address, data;
 
