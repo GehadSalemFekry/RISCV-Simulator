@@ -171,6 +171,7 @@ void getInstruction(vector<string> &data) {
 
     vector<string> i_type_arithmetic = {"addi", "slli", "slti", "sltiu", "xori", "srli", "srai", "ori", "andi"}; // 9
     if (isFound(i_type_arithmetic, instruction)) {
+        
         int rs1 = getRegNumber(data[2]), imm = stoi(data[3]);
 
         if (instruction == i_type_arithmetic[0]) { // addi
