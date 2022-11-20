@@ -1,0 +1,19 @@
+addi a0, zero, 5000
+addi a1, zero,    6000
+addi a2, zero  , 5
+jal ra, swap
+jal zero, Exit
+swap: add t0, a0, zero  #t0 = p1
+	addi t1, a1, 0  #t1 = p2
+	slli a2, a2, 2  #a2 = size
+	add t2, t0, a2  #t2 = end
+	Loop: bge t0, t2, return
+		lw t5, 0(t0)
+		lw t6, 0(t1)
+		sw t5, 0(t1)
+		sw t6, 0(t0)
+		addi t0, t0, 4
+		addi t1, t1, 4
+		beq zero, zero, Loop
+	return: jalr zero, 0(ra)
+Exit: fence

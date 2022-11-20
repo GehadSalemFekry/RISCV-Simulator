@@ -10,12 +10,12 @@ using namespace std;
 
 //Replace pow(2,32) with a const int value to reduce complexity in every function
 //boolean found to check that this is even an instruction, so make it true when you get into a family.
-//*if it was not found then fout "error in line _"
+//*if it was not found then cout "error in line _"
 map<int, int> mem;
 int reg[32];
 int pc = 0, type = 1;
 map<string, int> labels;
-ofstream fout;
+//ofstream cout;
 
 unordered_map<string, int> reg_to_num = {{"zero", 0}, {"ra", 1}, {"sp", 2}, {"gp", 3}, {"tp", 4}, {"t0", 5}, {"t1", 6}, {"t2", 7},
                                {"s0", 8}, {"s1", 9}, {"a0", 10}, {"a1", 11}, {"a2", 12}, {"a3", 13}, {"a4", 14}, {"a5", 15},
@@ -36,7 +36,7 @@ int getRegNumber(string reg_name) {
     return reg_to_num[reg_name];
 }
 
-string decimalToBase(int n, int base = 2) { // By default base 2
+string decimalToBase(unsigned int n, int base = 2) { // By default base 2
     if (n == 0) return "0";
 
     string ans = "";
@@ -83,45 +83,40 @@ vector<string> separate(string line, int num) {
 }
 
 void printContent() {
-    fout << "Program Counter: ";
-    if (type == 2) fout << decimalToHexa(pc) << "\n";
-    else if (type == 3) fout << decimalToBase(pc) << "\n";
-    else fout << pc << "\n";
+    cout << "Program Counter: ";
+    if (type == 2) cout << decimalToHexa(pc) << "\n";
+    else if (type == 3) cout << decimalToBase(pc) << "\n";
+    else cout << pc << "\n";
 
-    fout << "--------------------- Registers Content: ----------------------\n"; 
+    cout << "--------------------- Registers Content: ----------------------\n"; 
     int i = 0;
 
     map<int, string> rev_reg;
     for (auto u : reg_to_num) rev_reg[u.second] = u.first;
     for (int i = 0; i < 32; i++) {
-        fout << "x" << i << " (" << rev_reg[i] << "): ";
-        if (type == 2) fout << decimalToHexa(reg[i]) << "\t";
-        else if (type == 3) fout << decimalToBase(reg[i]) << "\t";
-        else fout << reg[i] << "\t";
-        if ((i + 1) % 4 == 0) fout << "\n";
+        cout << "x" << i << " (" << rev_reg[i] << "): ";
+        if (type == 2) cout << decimalToHexa(reg[i]) << "\t";
+        else if (type == 3) cout << decimalToBase(reg[i]) << "\t";
+        else cout << reg[i] << "\t";
+        if ((i + 1) % 4 == 0) cout << "\n";
     }
-    fout << "---------------------- Memory Content: ------------------------\n";
-    fout << "\n";
+    cout << "---------------------- Memory Content: ------------------------\n";
+    cout << "\n";
 
     i = 0;
     for (auto u : mem) {
-        fout << u.first << ": ";
-        if (type == 2) fout << decimalToHexa(u.second) << "\t";
-        else if (type == 3) fout << decimalToBase(u.second) << "\t";
-        else fout << u.second << "\t";
+        cout << u.first << ": ";
+        if (type == 2) cout << decimalToHexa(u.second) << "\t";
+        else if (type == 3) cout << decimalToBase(u.second) << "\t";
+        else cout << u.second << "\t";
         i++;
-        if (i % 8 == 0) fout << "\n";
+        if (i % 8 == 0) cout << "\n";
     }
-    fout << "\n---------------------------------------------------------------\n";
+    cout << "\n---------------------------------------------------------------\n";
 }
 
 void getInstruction(vector<string> &data) {
-    //if (!data.size()) return;
-    fout <<"(" << data[0] << ")hereeeeee ya ....";
-    fout << to_lower(data[0]) << "\n";
     string instruction = to_lower(data[0]);
-    fout << instruction << "\n";
-    fout << "here1\n";
 
     vector<string> halt = {"ebreak", "ecall", "fence"}; // 3
     if (isFound(halt, instruction)) {
@@ -167,8 +162,6 @@ void getInstruction(vector<string> &data) {
         pc += 4;
     }
     
-    fout << "here2\n";
-
     vector<string> i_type_arithmetic = {"addi", "slli", "slti", "sltiu", "xori", "srli", "srai", "ori", "andi"}; // 9
     if (isFound(i_type_arithmetic, instruction)) {
         
@@ -203,8 +196,6 @@ void getInstruction(vector<string> &data) {
         pc += 4;
     }
 
-    fout << "here3\n";
-
 
     vector<string> i_type_load = {"lb", "lbu", "lh", "lhu", "lw", "jalr"}; // 5
     if (isFound(i_type_load, instruction)) {        
@@ -221,14 +212,11 @@ void getInstruction(vector<string> &data) {
         } else if (instruction == i_type_load[4]) { // lw
             reg[rd] = mem[reg[rs1] + offset] | (mem[reg[rs1] + offset + 1] << 8) | (mem[reg[rs1] + offset + 2] << 16) | (mem[reg[rs1] + offset + 3] << 24);
         } else if (instruction == i_type_load[5]) { // jalr
-            //fout << offset << " " << reg[rs1] << " " << pc << "\n";
             reg[rd] = pc + 4;
             pc = reg[rs1] + offset;
         }
         if (instruction != i_type_load[5]) pc += 4;
     }
-
-    fout << "here4\n";
 
     vector<string> s_type = {"sb", "sh", "sw"}; // 3
     if (isFound(s_type, instruction)) {
@@ -249,7 +237,6 @@ void getInstruction(vector<string> &data) {
 
         pc += 4;
     }
-    fout << "here5\n";
 
     vector<string> sb_type = {"beq", "bne", "blt", "bge", "bltu", "bgeu"}; // 6
     if (isFound(sb_type, instruction)) {
@@ -288,8 +275,6 @@ void getInstruction(vector<string> &data) {
             else pc += 4;
         }
     }
-    fout << "here6\n";
-
 
     vector<string> u_type = {"lui", "auipc"}; // 3
     if (isFound(u_type, instruction)) {
@@ -304,20 +289,10 @@ void getInstruction(vector<string> &data) {
         } 
     }
 
-    fout << "here777777\n";
-
     if (instruction == "jal") { // jal
-        fout << "here - ya rab ne5las\n";
-
         int counter = labels[data[2]] - pc;
-        fout << counter << " " << labels[data[2]] << " " << pc << "\n";
-
         reg[rd] = pc + 4;
-        fout << counter << " " << labels[data[2]] << " " << pc << "\n";
-
         pc += counter;
-        fout << counter << " " << labels[data[2]] << " " << pc << "\n";
-
     }
 
 
@@ -327,12 +302,12 @@ void getInstruction(vector<string> &data) {
 }
 
 int main() {
-    
+    reg[2] = 2147479548, reg[3] = 268468224;  //initializing sp and gp
 
     ifstream fin_data, fin_prog;
-    fin_data.open("strlen_data.txt");
-    fin_prog.open("strlen_program.txt"); // We can have it user input
-    fout.open("strlen_output.txt");
+    fin_data.open("swap_data.txt");
+    fin_prog.open("swap_program.txt"); // We can have it user input
+    //cout.open("strlen_output.txt");
 
 
     cout << "Please choose whether you want the value in the registers in decimal," 
@@ -359,10 +334,9 @@ int main() {
     //storing the program and initializing the labels vector with the addresses without excuting any instruction
     int init_add = pc;
     while (getline(fin_prog, line)) {
-        fout << line << "\n";
+        cout << line << "\n";
         program[init_add] = separate(line, init_add);
-        for (auto u : program[init_add]) fout << u << " ";
-        fout << "\n";
+        cout << "\n";
         init_add += 4;
     }
 
@@ -372,7 +346,7 @@ int main() {
     //looping on the program instructions to excute them
     int end = 4 * program.size() + pc;
     while (pc < end) {
-        for (auto u : program[pc]) fout << u << " ";
+        for (auto u : program[pc]) cout << u << " ";
         getInstruction(program[pc]);
     }
 
