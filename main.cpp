@@ -5,6 +5,7 @@
 #include <fstream>
 #include <vector>
 #include <map>
+#include <unordered_map>
 using namespace std;
 
 //Replace pow(2,32) with a const int value to reduce complexity in every function
@@ -15,7 +16,7 @@ int reg[32];
 int pc = 0;
 map<string, int> labels;
 
-map<string, int> reg_to_num = {{"zero", 0}, {"ra", 1}, {"sp", 2}, {"gp", 3}, {"tp", 4}, {"t0", 5}, {"t1", 6}, {"t2", 7},
+unordered_map<string, int> reg_to_num = {{"zero", 0}, {"ra", 1}, {"sp", 2}, {"gp", 3}, {"tp", 4}, {"t0", 5}, {"t1", 6}, {"t2", 7},
                                {"s0", 8}, {"s1", 9}, {"a0", 10}, {"a1", 11}, {"a2", 12}, {"a3", 13}, {"a4", 14}, {"a5", 15},
                                {"a6", 16}, {"a7", 17}, {"s2", 18}, {"s3", 19}, {"s4", 20}, {"s5", 21}, {"s6", 22}, {"s7", 23},
                                {"s8", 24}, {"s9", 25}, {"s10", 26}, {"s11", 27}, {"t3", 28}, {"t4", 29}, {"t5", 30}, {"t6", 31}};
@@ -83,14 +84,23 @@ void printContent() {
     cout << "Program Counter: " << pc << "\n";
 
     cout << "--------------------- Registers Content: ----------------------\n"; 
-    for (int i = 0; i < 32; i++) {
-        cout << "x" << i << ": " << reg[i] << "\t";
+    int i = 0;
+
+    map<int, string> rev_reg;
+    for (auto u : reg_to_num) rev_reg[u.second] = u.first;
+    /*for (auto& it : reg_to_num) {
+        cout << "x" << i << " (" << it.first << "): " << reg[i] << "\t";
         if ((i + 1) % 8 == 0) cout << "\n";
+        i++;
+    }*/
+    for (int i = 0; i < 32; i++) {
+        cout << "x" << i << " (" << rev_reg[i] << "): "  << reg[i] << "\t";
+        if ((i + 1) % 4 == 0) cout << "\n";
     }
     cout << "---------------------- Memory Content: ------------------------\n";
     cout << "\n";
 
-    int i = 0;
+    i = 0;
     for (auto u : mem) {
         cout << u.first << ": " << u.second << "\t";
         i++;
@@ -312,10 +322,8 @@ void getInstruction(vector<string> &data) {
 int main() {
     ifstream fin_data, fin_prog;
 
-    fin_data.open("fibonacci_data.txt");
-    fin_prog.open("fibonacci_program.txt"); // We can have it user input
-
-    freopen("fibonacci_output.txt", "w", stdout);
+    fin_data.open("sum_difference_data.txt");
+    fin_prog.open("sum_difference_program.txt"); // We can have it user input
 
     int address, data;
 
