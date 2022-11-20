@@ -80,34 +80,34 @@ vector<string> separate(string line, int num) {
 }
 
 void printContent() {
-    fout << "Program Counter: ";
-    if (type == 2) fout << decimalToHexa(pc) << "\n";
-    else if (type == 3) fout << decimalToBase(pc) << "\n";
-    else fout << pc << "\n";
+    cout << "Program Counter: ";
+    if (type == 2) cout << decimalToHexa(pc) << "\n";
+    else if (type == 3) cout << decimalToBase(pc) << "\n";
+    else cout << pc << "\n";
 
-    fout << "--------------------- Registers Content: ----------------------\n"; 
+    cout << "--------------------- Registers Content: ----------------------\n"; 
     int i = 0;
 
     map<int, string> rev_reg;
     for (auto u : reg_to_num) rev_reg[u.second] = u.first;
     for (int i = 0; i < 32; i++) {
-        fout << "x" << i << " (" << rev_reg[i] << "): ";
-        if (type == 2) fout << decimalToHexa(reg[i]) << "\t";
-        else if (type == 3) fout << decimalToBase(reg[i]) << "\t";
-        else fout << reg[i] << "\t";
-        if ((i + 1) % 4 == 0) fout << "\n";
+        cout << "x" << i << " (" << rev_reg[i] << "): ";
+        if (type == 2) cout << decimalToHexa(reg[i]) << "\t";
+        else if (type == 3) cout << decimalToBase(reg[i]) << "\t";
+        else cout << reg[i] << "\t";
+        if ((i + 1) % 4 == 0) cout << "\n";
     }
     fout << "\n";
     fout << "---------------------- Memory Content: ------------------------\n";
 
     i = 0;
     for (auto u : mem) {
-        fout << u.first << ": ";
-        if (type == 2) fout << decimalToHexa(u.second) << "\t";
-        else if (type == 3) fout << decimalToBase(u.second) << "\t";
-        else fout << u.second << "\t";
+        cout << u.first << ": ";
+        if (type == 2) cout << decimalToHexa(u.second) << "\t";
+        else if (type == 3) cout << decimalToBase(u.second) << "\t";
+        else cout << u.second << "\t";
         i++;
-        if (i % 8 == 0) fout << "\n";
+        if (i % 8 == 0) cout << "\n";
     }
     fout << "\n---------------------------------------------------------------\n\n";
 }
@@ -297,7 +297,8 @@ void getInstruction(vector<string> &data) {
 }
 
 int main() {
-    
+    reg[2] = 2147479548, reg[3] = 268468224;  //initializing sp and gp
+
     ifstream fin_data, fin_prog;
     cout << "Hii, please enter the file name of the file containing the RISC-V code: ";
     string f_program, f_data, f_output;
