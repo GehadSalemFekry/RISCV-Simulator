@@ -19,5 +19,4 @@ loopj_end:  addi t4, t4, 4
             sw t3, 0(t4)
             addi t2, t2, 1
             blt t2, t1, loopi
-            jalr zero, 0(ra)
-fence
+ECALL

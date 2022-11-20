@@ -322,8 +322,8 @@ void getInstruction(vector<string> &data) {
 int main() {
     ifstream fin_data, fin_prog;
 
-    fin_data.open("sum_difference_data.txt");
-    fin_prog.open("sum_difference_program.txt"); // We can have it user input
+    fin_data.open("sort_data.txt");
+    fin_prog.open("sort_program.txt"); // We can have it user input
 
     int address, data;
 
