@@ -8,14 +8,11 @@
 #include <unordered_map>
 using namespace std;
 
-//Replace pow(2,32) with a const int value to reduce complexity in every function
-//boolean found to check that this is even an instruction, so make it true when you get into a family.
-//*if it was not found then cout "error in line _"
 map<int, int> mem;
 int reg[32];
 int pc = 0, type = 1;
 map<string, int> labels;
-//ofstream cout;
+ofstream fout;
 
 unordered_map<string, int> reg_to_num = {{"zero", 0}, {"ra", 1}, {"sp", 2}, {"gp", 3}, {"tp", 4}, {"t0", 5}, {"t1", 6}, {"t2", 7},
                                {"s0", 8}, {"s1", 9}, {"a0", 10}, {"a1", 11}, {"a2", 12}, {"a3", 13}, {"a4", 14}, {"a5", 15},
@@ -100,8 +97,8 @@ void printContent() {
         else cout << reg[i] << "\t";
         if ((i + 1) % 4 == 0) cout << "\n";
     }
-    cout << "---------------------- Memory Content: ------------------------\n";
-    cout << "\n";
+    fout << "\n";
+    fout << "---------------------- Memory Content: ------------------------\n";
 
     i = 0;
     for (auto u : mem) {
@@ -112,11 +109,12 @@ void printContent() {
         i++;
         if (i % 8 == 0) cout << "\n";
     }
-    cout << "\n---------------------------------------------------------------\n";
+    fout << "\n---------------------------------------------------------------\n\n";
 }
 
 void getInstruction(vector<string> &data) {
     string instruction = to_lower(data[0]);
+    fout << instruction << "\n";
 
     vector<string> halt = {"ebreak", "ecall", "fence"}; // 3
     if (isFound(halt, instruction)) {
@@ -144,7 +142,7 @@ void getInstruction(vector<string> &data) {
             reg[rd] = reg[rs1] ^ reg[rs2];
         } else if (instruction == r_type[6]) { // srl
 
-            if (reg[rs1] < 0 && reg[rs2]) { // To be fixed  //Fixed
+            if (reg[rs1] < 0 && reg[rs2]) { 
                 reg[rd] = (long long)(pow(2, 32) + reg[rs1]) >> reg[rs2];
                 if (!reg[rd] && reg[rs2] < 0)
                     reg[rd] = pow(2, -reg[rs2]) - 1;
@@ -177,7 +175,7 @@ void getInstruction(vector<string> &data) {
             reg[rd] = ((unsigned int)reg[rs1] < (unsigned int)imm) ? 1 : 0;
         } else if (instruction == i_type_arithmetic[4]) { // xori
             reg[rd] = reg[rs1] ^ imm;
-        } else if (instruction == i_type_arithmetic[5]) { // srli  //Fixed
+        } else if (instruction == i_type_arithmetic[5]) { // srli  
             if (reg[rs1] < 0 && imm) {
                 reg[rd] = (long long)(pow(2, 32) + reg[rs1]) >> imm;
                 if (!reg[rd] && imm < 0)
@@ -185,7 +183,7 @@ void getInstruction(vector<string> &data) {
             }
             else reg[rd] = reg[rs1] >> imm;
 
-        } else if (instruction == i_type_arithmetic[6]) { // srai  //Correct
+        } else if (instruction == i_type_arithmetic[6]) { // srai  
             reg[rd] = reg[rs1] >> imm;
         } else if (instruction == i_type_arithmetic[7]) { // ori
             reg[rd] = reg[rs1] | imm;
@@ -195,7 +193,6 @@ void getInstruction(vector<string> &data) {
 
         pc += 4;
     }
-
 
     vector<string> i_type_load = {"lb", "lbu", "lh", "lhu", "lw", "jalr"}; // 5
     if (isFound(i_type_load, instruction)) {        
@@ -264,7 +261,6 @@ void getInstruction(vector<string> &data) {
             else pc += 4;
         }
         else if (instruction == sb_type[4]) { // bltu
-            //if ((reg[rs1] % (1LL << 31)) + ((1LL << 31) * (reg[rs1] < 0)) < (reg[rs2] % (1LL << 31)) + ((1LL << 31) * reg[rs2] < 0))
             if ((unsigned int)reg[rs1] < (unsigned int)reg[rs2])
                 pc += counter;
             else pc += 4;
@@ -295,7 +291,6 @@ void getInstruction(vector<string> &data) {
         pc += counter;
     }
 
-
     if (rd == 0) reg[rd] = 0;  //__ overall for all calls
 
     printContent();
@@ -305,19 +300,25 @@ int main() {
     reg[2] = 2147479548, reg[3] = 268468224;  //initializing sp and gp
 
     ifstream fin_data, fin_prog;
-    fin_data.open("swap_data.txt");
-    fin_prog.open("swap_program.txt"); // We can have it user input
-    //cout.open("strlen_output.txt");
+    cout << "Hii, please enter the file name of the file containing the RISC-V code: ";
+    string f_program, f_data, f_output;
+    cin >> f_program;
+    cout << "Now, please enter the file name of the file containing the memory data needed: ";
+    cin >> f_data;
+    cout << "Please choose a name for your output file: ";
+    cin >> f_output;
 
+    fin_data.open(f_data);
+    fin_prog.open(f_program); 
+    fout.open(f_output);
 
     cout << "Please choose whether you want the value in the registers in decimal," 
-         << "hexadecimal or binary: (1: decimal, 2: hexadecimal, 3: binary)";
+         << "hexadecimal or binary (1: decimal, 2: hexadecimal, 3: binary): ";
     cin >> type;
     if (type != 2 && type != 3) type = 1;
 
-    int address, data;
-
     fin_data >> pc;
+    int address, data;
     while (fin_data >> address >> data) { // store byte by byte in the memory
         mem[address] = data & 0xFF;
         mem[address + 1] = (data >> 8) & 0xFF;
@@ -325,18 +326,13 @@ int main() {
         mem[address + 3] = (data >> 24) & 0xFF;
     }
 
-    
-
-
     string line;
     map<int, vector<string>> program;
 
     //storing the program and initializing the labels vector with the addresses without excuting any instruction
     int init_add = pc;
     while (getline(fin_prog, line)) {
-        cout << line << "\n";
         program[init_add] = separate(line, init_add);
-        cout << "\n";
         init_add += 4;
     }
 
@@ -346,7 +342,6 @@ int main() {
     //looping on the program instructions to excute them
     int end = 4 * program.size() + pc;
     while (pc < end) {
-        for (auto u : program[pc]) cout << u << " ";
         getInstruction(program[pc]);
     }
 
