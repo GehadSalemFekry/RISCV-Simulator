@@ -327,6 +327,7 @@ int main() {
 
     fin_data.open("max_data.txt");
     fin_prog.open("max_program.txt"); // We can have it user input
+    //freopen("strlen_output.txt", "w", stdout);
 
     int address, data;
 
