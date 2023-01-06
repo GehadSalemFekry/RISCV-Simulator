@@ -1,6 +1,7 @@
 lui a0, 1     #comment
 addi a0, a0, 904  #instead of addi a0, zero, 5000
-addi a1, zero,    6000
+lui x11, zero, 1
+addi x11, x11, 904
 addi a2, zero  , 5
 jal ra, swap
 jal zero, Exit

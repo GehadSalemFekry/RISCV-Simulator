@@ -1,4 +1,0 @@
-addi s7, x0, 1000
-lw s0, 0(s7) 
-sw s0, 4(s7)
-fence

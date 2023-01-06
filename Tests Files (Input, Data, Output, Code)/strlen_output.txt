@@ -1,35 +1,7 @@
-addi a0, zero, 1000
-addi a0 zero 1000 
-strlen: addi t0, a0, 0
-addi t0 a0 0 
-        addi t2, zero, 0
-addi t2 zero 0 
-Loop:   lbu t3, 0(t0)
-lbu t3 0(t0) 
-        beq  t3, zero, Break
-beq t3 zero Break 
-        addi t2, t2, 1
-addi t2 t2 1 
-        addi t0, t0, 1
-addi t0 t0 1 
-        jal  zero, Loop
-jal zero Loop 
-Break:  addi a0, t2, 0
-addi a0 t2 0 
-fence
-fence 
-addi a0 zero 1000 (addi)hereeeeee ya ....addi
-addi
-here1
-here2
-here3
-here4
-here5
-here6
-here777777
+Instruction: addi a0 zero 1000 
 Program Counter: 0x25C
 --------------------- Registers Content: ----------------------
-x0 (zero): 0x0	x1 (ra): 0x0	x2 (sp): 0x0	x3 (gp): 0x0	
+x0 (zero): 0x0	x1 (ra): 0x0	x2 (sp): 0x7FFFEFFC	x3 (gp): 0x10008000	
 x4 (tp): 0x0	x5 (t0): 0x0	x6 (t1): 0x0	x7 (t2): 0x0	
 x8 (s0): 0x0	x9 (s1): 0x0	x10 (a0): 0x3E8	x11 (a1): 0x0	
 x12 (a2): 0x0	x13 (a3): 0x0	x14 (a4): 0x0	x15 (a5): 0x0	
@@ -37,22 +9,15 @@ x16 (a6): 0x0	x17 (a7): 0x0	x18 (s2): 0x0	x19 (s3): 0x0
 x20 (s4): 0x0	x21 (s5): 0x0	x22 (s6): 0x0	x23 (s7): 0x0	
 x24 (s8): 0x0	x25 (s9): 0x0	x26 (s10): 0x0	x27 (s11): 0x0	
 x28 (t3): 0x0	x29 (t4): 0x0	x30 (t5): 0x0	x31 (t6): 0x0	
----------------------- Memory Content: ------------------------
 
+---------------------- Memory Content: ------------------------
 1000: 0x61	1001: 0x62	1002: 0x63	1003: 0x64	1004: 0x0	1005: 0x0	1006: 0x0	
 ---------------------------------------------------------------
-addi t0 a0 0 (addi)hereeeeee ya ....addi
-addi
-here1
-here2
-here3
-here4
-here5
-here6
-here777777
+
+Instruction: addi t0 a0 0 
 Program Counter: 0x260
 --------------------- Registers Content: ----------------------
-x0 (zero): 0x0	x1 (ra): 0x0	x2 (sp): 0x0	x3 (gp): 0x0	
+x0 (zero): 0x0	x1 (ra): 0x0	x2 (sp): 0x7FFFEFFC	x3 (gp): 0x10008000	
 x4 (tp): 0x0	x5 (t0): 0x3E8	x6 (t1): 0x0	x7 (t2): 0x0	
 x8 (s0): 0x0	x9 (s1): 0x0	x10 (a0): 0x3E8	x11 (a1): 0x0	
 x12 (a2): 0x0	x13 (a3): 0x0	x14 (a4): 0x0	x15 (a5): 0x0	
@@ -60,22 +25,15 @@ x16 (a6): 0x0	x17 (a7): 0x0	x18 (s2): 0x0	x19 (s3): 0x0
 x20 (s4): 0x0	x21 (s5): 0x0	x22 (s6): 0x0	x23 (s7): 0x0	
 x24 (s8): 0x0	x25 (s9): 0x0	x26 (s10): 0x0	x27 (s11): 0x0	
 x28 (t3): 0x0	x29 (t4): 0x0	x30 (t5): 0x0	x31 (t6): 0x0	
----------------------- Memory Content: ------------------------
 
+---------------------- Memory Content: ------------------------
 1000: 0x61	1001: 0x62	1002: 0x63	1003: 0x64	1004: 0x0	1005: 0x0	1006: 0x0	
 ---------------------------------------------------------------
-addi t2 zero 0 (addi)hereeeeee ya ....addi
-addi
-here1
-here2
-here3
-here4
-here5
-here6
-here777777
+
+Instruction: addi t2 zero 0 
 Program Counter: 0x264
 --------------------- Registers Content: ----------------------
-x0 (zero): 0x0	x1 (ra): 0x0	x2 (sp): 0x0	x3 (gp): 0x0	
+x0 (zero): 0x0	x1 (ra): 0x0	x2 (sp): 0x7FFFEFFC	x3 (gp): 0x10008000	
 x4 (tp): 0x0	x5 (t0): 0x3E8	x6 (t1): 0x0	x7 (t2): 0x0	
 x8 (s0): 0x0	x9 (s1): 0x0	x10 (a0): 0x3E8	x11 (a1): 0x0	
 x12 (a2): 0x0	x13 (a3): 0x0	x14 (a4): 0x0	x15 (a5): 0x0	
@@ -83,22 +41,15 @@ x16 (a6): 0x0	x17 (a7): 0x0	x18 (s2): 0x0	x19 (s3): 0x0
 x20 (s4): 0x0	x21 (s5): 0x0	x22 (s6): 0x0	x23 (s7): 0x0	
 x24 (s8): 0x0	x25 (s9): 0x0	x26 (s10): 0x0	x27 (s11): 0x0	
 x28 (t3): 0x0	x29 (t4): 0x0	x30 (t5): 0x0	x31 (t6): 0x0	
----------------------- Memory Content: ------------------------
 
+---------------------- Memory Content: ------------------------
 1000: 0x61	1001: 0x62	1002: 0x63	1003: 0x64	1004: 0x0	1005: 0x0	1006: 0x0	
 ---------------------------------------------------------------
-lbu t3 0(t0) (lbu)hereeeeee ya ....lbu
-lbu
-here1
-here2
-here3
-here4
-here5
-here6
-here777777
+
+Instruction: lbu t3 0(t0) 
 Program Counter: 0x268
 --------------------- Registers Content: ----------------------
-x0 (zero): 0x0	x1 (ra): 0x0	x2 (sp): 0x0	x3 (gp): 0x0	
+x0 (zero): 0x0	x1 (ra): 0x0	x2 (sp): 0x7FFFEFFC	x3 (gp): 0x10008000	
 x4 (tp): 0x0	x5 (t0): 0x3E8	x6 (t1): 0x0	x7 (t2): 0x0	
 x8 (s0): 0x0	x9 (s1): 0x0	x10 (a0): 0x3E8	x11 (a1): 0x0	
 x12 (a2): 0x0	x13 (a3): 0x0	x14 (a4): 0x0	x15 (a5): 0x0	
@@ -106,22 +57,15 @@ x16 (a6): 0x0	x17 (a7): 0x0	x18 (s2): 0x0	x19 (s3): 0x0
 x20 (s4): 0x0	x21 (s5): 0x0	x22 (s6): 0x0	x23 (s7): 0x0	
 x24 (s8): 0x0	x25 (s9): 0x0	x26 (s10): 0x0	x27 (s11): 0x0	
 x28 (t3): 0x61	x29 (t4): 0x0	x30 (t5): 0x0	x31 (t6): 0x0	
----------------------- Memory Content: ------------------------
 
+---------------------- Memory Content: ------------------------
 1000: 0x61	1001: 0x62	1002: 0x63	1003: 0x64	1004: 0x0	1005: 0x0	1006: 0x0	
 ---------------------------------------------------------------
-beq t3 zero Break (beq)hereeeeee ya ....beq
-beq
-here1
-here2
-here3
-here4
-here5
-here6
-here777777
+
+Instruction: beq t3 zero Break 
 Program Counter: 0x26C
 --------------------- Registers Content: ----------------------
-x0 (zero): 0x0	x1 (ra): 0x0	x2 (sp): 0x0	x3 (gp): 0x0	
+x0 (zero): 0x0	x1 (ra): 0x0	x2 (sp): 0x7FFFEFFC	x3 (gp): 0x10008000	
 x4 (tp): 0x0	x5 (t0): 0x3E8	x6 (t1): 0x0	x7 (t2): 0x0	
 x8 (s0): 0x0	x9 (s1): 0x0	x10 (a0): 0x3E8	x11 (a1): 0x0	
 x12 (a2): 0x0	x13 (a3): 0x0	x14 (a4): 0x0	x15 (a5): 0x0	
@@ -129,22 +73,15 @@ x16 (a6): 0x0	x17 (a7): 0x0	x18 (s2): 0x0	x19 (s3): 0x0
 x20 (s4): 0x0	x21 (s5): 0x0	x22 (s6): 0x0	x23 (s7): 0x0	
 x24 (s8): 0x0	x25 (s9): 0x0	x26 (s10): 0x0	x27 (s11): 0x0	
 x28 (t3): 0x61	x29 (t4): 0x0	x30 (t5): 0x0	x31 (t6): 0x0	
----------------------- Memory Content: ------------------------
 
+---------------------- Memory Content: ------------------------
 1000: 0x61	1001: 0x62	1002: 0x63	1003: 0x64	1004: 0x0	1005: 0x0	1006: 0x0	
 ---------------------------------------------------------------
-addi t2 t2 1 (addi)hereeeeee ya ....addi
-addi
-here1
-here2
-here3
-here4
-here5
-here6
-here777777
+
+Instruction: addi t2 t2 1 
 Program Counter: 0x270
 --------------------- Registers Content: ----------------------
-x0 (zero): 0x0	x1 (ra): 0x0	x2 (sp): 0x0	x3 (gp): 0x0	
+x0 (zero): 0x0	x1 (ra): 0x0	x2 (sp): 0x7FFFEFFC	x3 (gp): 0x10008000	
 x4 (tp): 0x0	x5 (t0): 0x3E8	x6 (t1): 0x0	x7 (t2): 0x1	
 x8 (s0): 0x0	x9 (s1): 0x0	x10 (a0): 0x3E8	x11 (a1): 0x0	
 x12 (a2): 0x0	x13 (a3): 0x0	x14 (a4): 0x0	x15 (a5): 0x0	
@@ -152,22 +89,15 @@ x16 (a6): 0x0	x17 (a7): 0x0	x18 (s2): 0x0	x19 (s3): 0x0
 x20 (s4): 0x0	x21 (s5): 0x0	x22 (s6): 0x0	x23 (s7): 0x0	
 x24 (s8): 0x0	x25 (s9): 0x0	x26 (s10): 0x0	x27 (s11): 0x0	
 x28 (t3): 0x61	x29 (t4): 0x0	x30 (t5): 0x0	x31 (t6): 0x0	
----------------------- Memory Content: ------------------------
 
+---------------------- Memory Content: ------------------------
 1000: 0x61	1001: 0x62	1002: 0x63	1003: 0x64	1004: 0x0	1005: 0x0	1006: 0x0	
 ---------------------------------------------------------------
-addi t0 t0 1 (addi)hereeeeee ya ....addi
-addi
-here1
-here2
-here3
-here4
-here5
-here6
-here777777
+
+Instruction: addi t0 t0 1 
 Program Counter: 0x274
 --------------------- Registers Content: ----------------------
-x0 (zero): 0x0	x1 (ra): 0x0	x2 (sp): 0x0	x3 (gp): 0x0	
+x0 (zero): 0x0	x1 (ra): 0x0	x2 (sp): 0x7FFFEFFC	x3 (gp): 0x10008000	
 x4 (tp): 0x0	x5 (t0): 0x3E9	x6 (t1): 0x0	x7 (t2): 0x1	
 x8 (s0): 0x0	x9 (s1): 0x0	x10 (a0): 0x3E8	x11 (a1): 0x0	
 x12 (a2): 0x0	x13 (a3): 0x0	x14 (a4): 0x0	x15 (a5): 0x0	
@@ -175,26 +105,15 @@ x16 (a6): 0x0	x17 (a7): 0x0	x18 (s2): 0x0	x19 (s3): 0x0
 x20 (s4): 0x0	x21 (s5): 0x0	x22 (s6): 0x0	x23 (s7): 0x0	
 x24 (s8): 0x0	x25 (s9): 0x0	x26 (s10): 0x0	x27 (s11): 0x0	
 x28 (t3): 0x61	x29 (t4): 0x0	x30 (t5): 0x0	x31 (t6): 0x0	
----------------------- Memory Content: ------------------------
 
+---------------------- Memory Content: ------------------------
 1000: 0x61	1001: 0x62	1002: 0x63	1003: 0x64	1004: 0x0	1005: 0x0	1006: 0x0	
 ---------------------------------------------------------------
-jal zero Loop (jal)hereeeeee ya ....jal
-jal
-here1
-here2
-here3
-here4
-here5
-here6
-here777777
-here - ya rab ne5las
--16 612 628
--16 612 628
--16 612 612
+
+Instruction: jal zero Loop 
 Program Counter: 0x264
 --------------------- Registers Content: ----------------------
-x0 (zero): 0x0	x1 (ra): 0x0	x2 (sp): 0x0	x3 (gp): 0x0	
+x0 (zero): 0x0	x1 (ra): 0x0	x2 (sp): 0x7FFFEFFC	x3 (gp): 0x10008000	
 x4 (tp): 0x0	x5 (t0): 0x3E9	x6 (t1): 0x0	x7 (t2): 0x1	
 x8 (s0): 0x0	x9 (s1): 0x0	x10 (a0): 0x3E8	x11 (a1): 0x0	
 x12 (a2): 0x0	x13 (a3): 0x0	x14 (a4): 0x0	x15 (a5): 0x0	
@@ -202,22 +121,15 @@ x16 (a6): 0x0	x17 (a7): 0x0	x18 (s2): 0x0	x19 (s3): 0x0
 x20 (s4): 0x0	x21 (s5): 0x0	x22 (s6): 0x0	x23 (s7): 0x0	
 x24 (s8): 0x0	x25 (s9): 0x0	x26 (s10): 0x0	x27 (s11): 0x0	
 x28 (t3): 0x61	x29 (t4): 0x0	x30 (t5): 0x0	x31 (t6): 0x0	
----------------------- Memory Content: ------------------------
 
+---------------------- Memory Content: ------------------------
 1000: 0x61	1001: 0x62	1002: 0x63	1003: 0x64	1004: 0x0	1005: 0x0	1006: 0x0	
 ---------------------------------------------------------------
-lbu t3 0(t0) (lbu)hereeeeee ya ....lbu
-lbu
-here1
-here2
-here3
-here4
-here5
-here6
-here777777
+
+Instruction: lbu t3 0(t0) 
 Program Counter: 0x268
 --------------------- Registers Content: ----------------------
-x0 (zero): 0x0	x1 (ra): 0x0	x2 (sp): 0x0	x3 (gp): 0x0	
+x0 (zero): 0x0	x1 (ra): 0x0	x2 (sp): 0x7FFFEFFC	x3 (gp): 0x10008000	
 x4 (tp): 0x0	x5 (t0): 0x3E9	x6 (t1): 0x0	x7 (t2): 0x1	
 x8 (s0): 0x0	x9 (s1): 0x0	x10 (a0): 0x3E8	x11 (a1): 0x0	
 x12 (a2): 0x0	x13 (a3): 0x0	x14 (a4): 0x0	x15 (a5): 0x0	
@@ -225,22 +137,15 @@ x16 (a6): 0x0	x17 (a7): 0x0	x18 (s2): 0x0	x19 (s3): 0x0
 x20 (s4): 0x0	x21 (s5): 0x0	x22 (s6): 0x0	x23 (s7): 0x0	
 x24 (s8): 0x0	x25 (s9): 0x0	x26 (s10): 0x0	x27 (s11): 0x0	
 x28 (t3): 0x62	x29 (t4): 0x0	x30 (t5): 0x0	x31 (t6): 0x0	
----------------------- Memory Content: ------------------------
 
+---------------------- Memory Content: ------------------------
 1000: 0x61	1001: 0x62	1002: 0x63	1003: 0x64	1004: 0x0	1005: 0x0	1006: 0x0	
 ---------------------------------------------------------------
-beq t3 zero Break (beq)hereeeeee ya ....beq
-beq
-here1
-here2
-here3
-here4
-here5
-here6
-here777777
+
+Instruction: beq t3 zero Break 
 Program Counter: 0x26C
 --------------------- Registers Content: ----------------------
-x0 (zero): 0x0	x1 (ra): 0x0	x2 (sp): 0x0	x3 (gp): 0x0	
+x0 (zero): 0x0	x1 (ra): 0x0	x2 (sp): 0x7FFFEFFC	x3 (gp): 0x10008000	
 x4 (tp): 0x0	x5 (t0): 0x3E9	x6 (t1): 0x0	x7 (t2): 0x1	
 x8 (s0): 0x0	x9 (s1): 0x0	x10 (a0): 0x3E8	x11 (a1): 0x0	
 x12 (a2): 0x0	x13 (a3): 0x0	x14 (a4): 0x0	x15 (a5): 0x0	
@@ -248,22 +153,15 @@ x16 (a6): 0x0	x17 (a7): 0x0	x18 (s2): 0x0	x19 (s3): 0x0
 x20 (s4): 0x0	x21 (s5): 0x0	x22 (s6): 0x0	x23 (s7): 0x0	
 x24 (s8): 0x0	x25 (s9): 0x0	x26 (s10): 0x0	x27 (s11): 0x0	
 x28 (t3): 0x62	x29 (t4): 0x0	x30 (t5): 0x0	x31 (t6): 0x0	
----------------------- Memory Content: ------------------------
 
+---------------------- Memory Content: ------------------------
 1000: 0x61	1001: 0x62	1002: 0x63	1003: 0x64	1004: 0x0	1005: 0x0	1006: 0x0	
 ---------------------------------------------------------------
-addi t2 t2 1 (addi)hereeeeee ya ....addi
-addi
-here1
-here2
-here3
-here4
-here5
-here6
-here777777
+
+Instruction: addi t2 t2 1 
 Program Counter: 0x270
 --------------------- Registers Content: ----------------------
-x0 (zero): 0x0	x1 (ra): 0x0	x2 (sp): 0x0	x3 (gp): 0x0	
+x0 (zero): 0x0	x1 (ra): 0x0	x2 (sp): 0x7FFFEFFC	x3 (gp): 0x10008000	
 x4 (tp): 0x0	x5 (t0): 0x3E9	x6 (t1): 0x0	x7 (t2): 0x2	
 x8 (s0): 0x0	x9 (s1): 0x0	x10 (a0): 0x3E8	x11 (a1): 0x0	
 x12 (a2): 0x0	x13 (a3): 0x0	x14 (a4): 0x0	x15 (a5): 0x0	
@@ -271,22 +169,15 @@ x16 (a6): 0x0	x17 (a7): 0x0	x18 (s2): 0x0	x19 (s3): 0x0
 x20 (s4): 0x0	x21 (s5): 0x0	x22 (s6): 0x0	x23 (s7): 0x0	
 x24 (s8): 0x0	x25 (s9): 0x0	x26 (s10): 0x0	x27 (s11): 0x0	
 x28 (t3): 0x62	x29 (t4): 0x0	x30 (t5): 0x0	x31 (t6): 0x0	
----------------------- Memory Content: ------------------------
 
+---------------------- Memory Content: ------------------------
 1000: 0x61	1001: 0x62	1002: 0x63	1003: 0x64	1004: 0x0	1005: 0x0	1006: 0x0	
 ---------------------------------------------------------------
-addi t0 t0 1 (addi)hereeeeee ya ....addi
-addi
-here1
-here2
-here3
-here4
-here5
-here6
-here777777
+
+Instruction: addi t0 t0 1 
 Program Counter: 0x274
 --------------------- Registers Content: ----------------------
-x0 (zero): 0x0	x1 (ra): 0x0	x2 (sp): 0x0	x3 (gp): 0x0	
+x0 (zero): 0x0	x1 (ra): 0x0	x2 (sp): 0x7FFFEFFC	x3 (gp): 0x10008000	
 x4 (tp): 0x0	x5 (t0): 0x3EA	x6 (t1): 0x0	x7 (t2): 0x2	
 x8 (s0): 0x0	x9 (s1): 0x0	x10 (a0): 0x3E8	x11 (a1): 0x0	
 x12 (a2): 0x0	x13 (a3): 0x0	x14 (a4): 0x0	x15 (a5): 0x0	
@@ -294,26 +185,15 @@ x16 (a6): 0x0	x17 (a7): 0x0	x18 (s2): 0x0	x19 (s3): 0x0
 x20 (s4): 0x0	x21 (s5): 0x0	x22 (s6): 0x0	x23 (s7): 0x0	
 x24 (s8): 0x0	x25 (s9): 0x0	x26 (s10): 0x0	x27 (s11): 0x0	
 x28 (t3): 0x62	x29 (t4): 0x0	x30 (t5): 0x0	x31 (t6): 0x0	
----------------------- Memory Content: ------------------------
 
+---------------------- Memory Content: ------------------------
 1000: 0x61	1001: 0x62	1002: 0x63	1003: 0x64	1004: 0x0	1005: 0x0	1006: 0x0	
 ---------------------------------------------------------------
-jal zero Loop (jal)hereeeeee ya ....jal
-jal
-here1
-here2
-here3
-here4
-here5
-here6
-here777777
-here - ya rab ne5las
--16 612 628
--16 612 628
--16 612 612
+
+Instruction: jal zero Loop 
 Program Counter: 0x264
 --------------------- Registers Content: ----------------------
-x0 (zero): 0x0	x1 (ra): 0x0	x2 (sp): 0x0	x3 (gp): 0x0	
+x0 (zero): 0x0	x1 (ra): 0x0	x2 (sp): 0x7FFFEFFC	x3 (gp): 0x10008000	
 x4 (tp): 0x0	x5 (t0): 0x3EA	x6 (t1): 0x0	x7 (t2): 0x2	
 x8 (s0): 0x0	x9 (s1): 0x0	x10 (a0): 0x3E8	x11 (a1): 0x0	
 x12 (a2): 0x0	x13 (a3): 0x0	x14 (a4): 0x0	x15 (a5): 0x0	
@@ -321,22 +201,15 @@ x16 (a6): 0x0	x17 (a7): 0x0	x18 (s2): 0x0	x19 (s3): 0x0
 x20 (s4): 0x0	x21 (s5): 0x0	x22 (s6): 0x0	x23 (s7): 0x0	
 x24 (s8): 0x0	x25 (s9): 0x0	x26 (s10): 0x0	x27 (s11): 0x0	
 x28 (t3): 0x62	x29 (t4): 0x0	x30 (t5): 0x0	x31 (t6): 0x0	
----------------------- Memory Content: ------------------------
 
+---------------------- Memory Content: ------------------------
 1000: 0x61	1001: 0x62	1002: 0x63	1003: 0x64	1004: 0x0	1005: 0x0	1006: 0x0	
 ---------------------------------------------------------------
-lbu t3 0(t0) (lbu)hereeeeee ya ....lbu
-lbu
-here1
-here2
-here3
-here4
-here5
-here6
-here777777
+
+Instruction: lbu t3 0(t0) 
 Program Counter: 0x268
 --------------------- Registers Content: ----------------------
-x0 (zero): 0x0	x1 (ra): 0x0	x2 (sp): 0x0	x3 (gp): 0x0	
+x0 (zero): 0x0	x1 (ra): 0x0	x2 (sp): 0x7FFFEFFC	x3 (gp): 0x10008000	
 x4 (tp): 0x0	x5 (t0): 0x3EA	x6 (t1): 0x0	x7 (t2): 0x2	
 x8 (s0): 0x0	x9 (s1): 0x0	x10 (a0): 0x3E8	x11 (a1): 0x0	
 x12 (a2): 0x0	x13 (a3): 0x0	x14 (a4): 0x0	x15 (a5): 0x0	
@@ -344,22 +217,15 @@ x16 (a6): 0x0	x17 (a7): 0x0	x18 (s2): 0x0	x19 (s3): 0x0
 x20 (s4): 0x0	x21 (s5): 0x0	x22 (s6): 0x0	x23 (s7): 0x0	
 x24 (s8): 0x0	x25 (s9): 0x0	x26 (s10): 0x0	x27 (s11): 0x0	
 x28 (t3): 0x63	x29 (t4): 0x0	x30 (t5): 0x0	x31 (t6): 0x0	
----------------------- Memory Content: ------------------------
 
+---------------------- Memory Content: ------------------------
 1000: 0x61	1001: 0x62	1002: 0x63	1003: 0x64	1004: 0x0	1005: 0x0	1006: 0x0	
 ---------------------------------------------------------------
-beq t3 zero Break (beq)hereeeeee ya ....beq
-beq
-here1
-here2
-here3
-here4
-here5
-here6
-here777777
+
+Instruction: beq t3 zero Break 
 Program Counter: 0x26C
 --------------------- Registers Content: ----------------------
-x0 (zero): 0x0	x1 (ra): 0x0	x2 (sp): 0x0	x3 (gp): 0x0	
+x0 (zero): 0x0	x1 (ra): 0x0	x2 (sp): 0x7FFFEFFC	x3 (gp): 0x10008000	
 x4 (tp): 0x0	x5 (t0): 0x3EA	x6 (t1): 0x0	x7 (t2): 0x2	
 x8 (s0): 0x0	x9 (s1): 0x0	x10 (a0): 0x3E8	x11 (a1): 0x0	
 x12 (a2): 0x0	x13 (a3): 0x0	x14 (a4): 0x0	x15 (a5): 0x0	
@@ -367,22 +233,15 @@ x16 (a6): 0x0	x17 (a7): 0x0	x18 (s2): 0x0	x19 (s3): 0x0
 x20 (s4): 0x0	x21 (s5): 0x0	x22 (s6): 0x0	x23 (s7): 0x0	
 x24 (s8): 0x0	x25 (s9): 0x0	x26 (s10): 0x0	x27 (s11): 0x0	
 x28 (t3): 0x63	x29 (t4): 0x0	x30 (t5): 0x0	x31 (t6): 0x0	
----------------------- Memory Content: ------------------------
 
+---------------------- Memory Content: ------------------------
 1000: 0x61	1001: 0x62	1002: 0x63	1003: 0x64	1004: 0x0	1005: 0x0	1006: 0x0	
 ---------------------------------------------------------------
-addi t2 t2 1 (addi)hereeeeee ya ....addi
-addi
-here1
-here2
-here3
-here4
-here5
-here6
-here777777
+
+Instruction: addi t2 t2 1 
 Program Counter: 0x270
 --------------------- Registers Content: ----------------------
-x0 (zero): 0x0	x1 (ra): 0x0	x2 (sp): 0x0	x3 (gp): 0x0	
+x0 (zero): 0x0	x1 (ra): 0x0	x2 (sp): 0x7FFFEFFC	x3 (gp): 0x10008000	
 x4 (tp): 0x0	x5 (t0): 0x3EA	x6 (t1): 0x0	x7 (t2): 0x3	
 x8 (s0): 0x0	x9 (s1): 0x0	x10 (a0): 0x3E8	x11 (a1): 0x0	
 x12 (a2): 0x0	x13 (a3): 0x0	x14 (a4): 0x0	x15 (a5): 0x0	
@@ -390,22 +249,15 @@ x16 (a6): 0x0	x17 (a7): 0x0	x18 (s2): 0x0	x19 (s3): 0x0
 x20 (s4): 0x0	x21 (s5): 0x0	x22 (s6): 0x0	x23 (s7): 0x0	
 x24 (s8): 0x0	x25 (s9): 0x0	x26 (s10): 0x0	x27 (s11): 0x0	
 x28 (t3): 0x63	x29 (t4): 0x0	x30 (t5): 0x0	x31 (t6): 0x0	
----------------------- Memory Content: ------------------------
 
+---------------------- Memory Content: ------------------------
 1000: 0x61	1001: 0x62	1002: 0x63	1003: 0x64	1004: 0x0	1005: 0x0	1006: 0x0	
 ---------------------------------------------------------------
-addi t0 t0 1 (addi)hereeeeee ya ....addi
-addi
-here1
-here2
-here3
-here4
-here5
-here6
-here777777
+
+Instruction: addi t0 t0 1 
 Program Counter: 0x274
 --------------------- Registers Content: ----------------------
-x0 (zero): 0x0	x1 (ra): 0x0	x2 (sp): 0x0	x3 (gp): 0x0	
+x0 (zero): 0x0	x1 (ra): 0x0	x2 (sp): 0x7FFFEFFC	x3 (gp): 0x10008000	
 x4 (tp): 0x0	x5 (t0): 0x3EB	x6 (t1): 0x0	x7 (t2): 0x3	
 x8 (s0): 0x0	x9 (s1): 0x0	x10 (a0): 0x3E8	x11 (a1): 0x0	
 x12 (a2): 0x0	x13 (a3): 0x0	x14 (a4): 0x0	x15 (a5): 0x0	
@@ -413,26 +265,15 @@ x16 (a6): 0x0	x17 (a7): 0x0	x18 (s2): 0x0	x19 (s3): 0x0
 x20 (s4): 0x0	x21 (s5): 0x0	x22 (s6): 0x0	x23 (s7): 0x0	
 x24 (s8): 0x0	x25 (s9): 0x0	x26 (s10): 0x0	x27 (s11): 0x0	
 x28 (t3): 0x63	x29 (t4): 0x0	x30 (t5): 0x0	x31 (t6): 0x0	
----------------------- Memory Content: ------------------------
 
+---------------------- Memory Content: ------------------------
 1000: 0x61	1001: 0x62	1002: 0x63	1003: 0x64	1004: 0x0	1005: 0x0	1006: 0x0	
 ---------------------------------------------------------------
-jal zero Loop (jal)hereeeeee ya ....jal
-jal
-here1
-here2
-here3
-here4
-here5
-here6
-here777777
-here - ya rab ne5las
--16 612 628
--16 612 628
--16 612 612
+
+Instruction: jal zero Loop 
 Program Counter: 0x264
 --------------------- Registers Content: ----------------------
-x0 (zero): 0x0	x1 (ra): 0x0	x2 (sp): 0x0	x3 (gp): 0x0	
+x0 (zero): 0x0	x1 (ra): 0x0	x2 (sp): 0x7FFFEFFC	x3 (gp): 0x10008000	
 x4 (tp): 0x0	x5 (t0): 0x3EB	x6 (t1): 0x0	x7 (t2): 0x3	
 x8 (s0): 0x0	x9 (s1): 0x0	x10 (a0): 0x3E8	x11 (a1): 0x0	
 x12 (a2): 0x0	x13 (a3): 0x0	x14 (a4): 0x0	x15 (a5): 0x0	
@@ -440,22 +281,15 @@ x16 (a6): 0x0	x17 (a7): 0x0	x18 (s2): 0x0	x19 (s3): 0x0
 x20 (s4): 0x0	x21 (s5): 0x0	x22 (s6): 0x0	x23 (s7): 0x0	
 x24 (s8): 0x0	x25 (s9): 0x0	x26 (s10): 0x0	x27 (s11): 0x0	
 x28 (t3): 0x63	x29 (t4): 0x0	x30 (t5): 0x0	x31 (t6): 0x0	
----------------------- Memory Content: ------------------------
 
+---------------------- Memory Content: ------------------------
 1000: 0x61	1001: 0x62	1002: 0x63	1003: 0x64	1004: 0x0	1005: 0x0	1006: 0x0	
 ---------------------------------------------------------------
-lbu t3 0(t0) (lbu)hereeeeee ya ....lbu
-lbu
-here1
-here2
-here3
-here4
-here5
-here6
-here777777
+
+Instruction: lbu t3 0(t0) 
 Program Counter: 0x268
 --------------------- Registers Content: ----------------------
-x0 (zero): 0x0	x1 (ra): 0x0	x2 (sp): 0x0	x3 (gp): 0x0	
+x0 (zero): 0x0	x1 (ra): 0x0	x2 (sp): 0x7FFFEFFC	x3 (gp): 0x10008000	
 x4 (tp): 0x0	x5 (t0): 0x3EB	x6 (t1): 0x0	x7 (t2): 0x3	
 x8 (s0): 0x0	x9 (s1): 0x0	x10 (a0): 0x3E8	x11 (a1): 0x0	
 x12 (a2): 0x0	x13 (a3): 0x0	x14 (a4): 0x0	x15 (a5): 0x0	
@@ -463,22 +297,15 @@ x16 (a6): 0x0	x17 (a7): 0x0	x18 (s2): 0x0	x19 (s3): 0x0
 x20 (s4): 0x0	x21 (s5): 0x0	x22 (s6): 0x0	x23 (s7): 0x0	
 x24 (s8): 0x0	x25 (s9): 0x0	x26 (s10): 0x0	x27 (s11): 0x0	
 x28 (t3): 0x64	x29 (t4): 0x0	x30 (t5): 0x0	x31 (t6): 0x0	
----------------------- Memory Content: ------------------------
 
+---------------------- Memory Content: ------------------------
 1000: 0x61	1001: 0x62	1002: 0x63	1003: 0x64	1004: 0x0	1005: 0x0	1006: 0x0	
 ---------------------------------------------------------------
-beq t3 zero Break (beq)hereeeeee ya ....beq
-beq
-here1
-here2
-here3
-here4
-here5
-here6
-here777777
+
+Instruction: beq t3 zero Break 
 Program Counter: 0x26C
 --------------------- Registers Content: ----------------------
-x0 (zero): 0x0	x1 (ra): 0x0	x2 (sp): 0x0	x3 (gp): 0x0	
+x0 (zero): 0x0	x1 (ra): 0x0	x2 (sp): 0x7FFFEFFC	x3 (gp): 0x10008000	
 x4 (tp): 0x0	x5 (t0): 0x3EB	x6 (t1): 0x0	x7 (t2): 0x3	
 x8 (s0): 0x0	x9 (s1): 0x0	x10 (a0): 0x3E8	x11 (a1): 0x0	
 x12 (a2): 0x0	x13 (a3): 0x0	x14 (a4): 0x0	x15 (a5): 0x0	
@@ -486,22 +313,15 @@ x16 (a6): 0x0	x17 (a7): 0x0	x18 (s2): 0x0	x19 (s3): 0x0
 x20 (s4): 0x0	x21 (s5): 0x0	x22 (s6): 0x0	x23 (s7): 0x0	
 x24 (s8): 0x0	x25 (s9): 0x0	x26 (s10): 0x0	x27 (s11): 0x0	
 x28 (t3): 0x64	x29 (t4): 0x0	x30 (t5): 0x0	x31 (t6): 0x0	
----------------------- Memory Content: ------------------------
 
+---------------------- Memory Content: ------------------------
 1000: 0x61	1001: 0x62	1002: 0x63	1003: 0x64	1004: 0x0	1005: 0x0	1006: 0x0	
 ---------------------------------------------------------------
-addi t2 t2 1 (addi)hereeeeee ya ....addi
-addi
-here1
-here2
-here3
-here4
-here5
-here6
-here777777
+
+Instruction: addi t2 t2 1 
 Program Counter: 0x270
 --------------------- Registers Content: ----------------------
-x0 (zero): 0x0	x1 (ra): 0x0	x2 (sp): 0x0	x3 (gp): 0x0	
+x0 (zero): 0x0	x1 (ra): 0x0	x2 (sp): 0x7FFFEFFC	x3 (gp): 0x10008000	
 x4 (tp): 0x0	x5 (t0): 0x3EB	x6 (t1): 0x0	x7 (t2): 0x4	
 x8 (s0): 0x0	x9 (s1): 0x0	x10 (a0): 0x3E8	x11 (a1): 0x0	
 x12 (a2): 0x0	x13 (a3): 0x0	x14 (a4): 0x0	x15 (a5): 0x0	
@@ -509,22 +329,15 @@ x16 (a6): 0x0	x17 (a7): 0x0	x18 (s2): 0x0	x19 (s3): 0x0
 x20 (s4): 0x0	x21 (s5): 0x0	x22 (s6): 0x0	x23 (s7): 0x0	
 x24 (s8): 0x0	x25 (s9): 0x0	x26 (s10): 0x0	x27 (s11): 0x0	
 x28 (t3): 0x64	x29 (t4): 0x0	x30 (t5): 0x0	x31 (t6): 0x0	
----------------------- Memory Content: ------------------------
 
+---------------------- Memory Content: ------------------------
 1000: 0x61	1001: 0x62	1002: 0x63	1003: 0x64	1004: 0x0	1005: 0x0	1006: 0x0	
 ---------------------------------------------------------------
-addi t0 t0 1 (addi)hereeeeee ya ....addi
-addi
-here1
-here2
-here3
-here4
-here5
-here6
-here777777
+
+Instruction: addi t0 t0 1 
 Program Counter: 0x274
 --------------------- Registers Content: ----------------------
-x0 (zero): 0x0	x1 (ra): 0x0	x2 (sp): 0x0	x3 (gp): 0x0	
+x0 (zero): 0x0	x1 (ra): 0x0	x2 (sp): 0x7FFFEFFC	x3 (gp): 0x10008000	
 x4 (tp): 0x0	x5 (t0): 0x3EC	x6 (t1): 0x0	x7 (t2): 0x4	
 x8 (s0): 0x0	x9 (s1): 0x0	x10 (a0): 0x3E8	x11 (a1): 0x0	
 x12 (a2): 0x0	x13 (a3): 0x0	x14 (a4): 0x0	x15 (a5): 0x0	
@@ -532,26 +345,15 @@ x16 (a6): 0x0	x17 (a7): 0x0	x18 (s2): 0x0	x19 (s3): 0x0
 x20 (s4): 0x0	x21 (s5): 0x0	x22 (s6): 0x0	x23 (s7): 0x0	
 x24 (s8): 0x0	x25 (s9): 0x0	x26 (s10): 0x0	x27 (s11): 0x0	
 x28 (t3): 0x64	x29 (t4): 0x0	x30 (t5): 0x0	x31 (t6): 0x0	
----------------------- Memory Content: ------------------------
 
+---------------------- Memory Content: ------------------------
 1000: 0x61	1001: 0x62	1002: 0x63	1003: 0x64	1004: 0x0	1005: 0x0	1006: 0x0	
 ---------------------------------------------------------------
-jal zero Loop (jal)hereeeeee ya ....jal
-jal
-here1
-here2
-here3
-here4
-here5
-here6
-here777777
-here - ya rab ne5las
--16 612 628
--16 612 628
--16 612 612
+
+Instruction: jal zero Loop 
 Program Counter: 0x264
 --------------------- Registers Content: ----------------------
-x0 (zero): 0x0	x1 (ra): 0x0	x2 (sp): 0x0	x3 (gp): 0x0	
+x0 (zero): 0x0	x1 (ra): 0x0	x2 (sp): 0x7FFFEFFC	x3 (gp): 0x10008000	
 x4 (tp): 0x0	x5 (t0): 0x3EC	x6 (t1): 0x0	x7 (t2): 0x4	
 x8 (s0): 0x0	x9 (s1): 0x0	x10 (a0): 0x3E8	x11 (a1): 0x0	
 x12 (a2): 0x0	x13 (a3): 0x0	x14 (a4): 0x0	x15 (a5): 0x0	
@@ -559,22 +361,15 @@ x16 (a6): 0x0	x17 (a7): 0x0	x18 (s2): 0x0	x19 (s3): 0x0
 x20 (s4): 0x0	x21 (s5): 0x0	x22 (s6): 0x0	x23 (s7): 0x0	
 x24 (s8): 0x0	x25 (s9): 0x0	x26 (s10): 0x0	x27 (s11): 0x0	
 x28 (t3): 0x64	x29 (t4): 0x0	x30 (t5): 0x0	x31 (t6): 0x0	
----------------------- Memory Content: ------------------------
 
+---------------------- Memory Content: ------------------------
 1000: 0x61	1001: 0x62	1002: 0x63	1003: 0x64	1004: 0x0	1005: 0x0	1006: 0x0	
 ---------------------------------------------------------------
-lbu t3 0(t0) (lbu)hereeeeee ya ....lbu
-lbu
-here1
-here2
-here3
-here4
-here5
-here6
-here777777
+
+Instruction: lbu t3 0(t0) 
 Program Counter: 0x268
 --------------------- Registers Content: ----------------------
-x0 (zero): 0x0	x1 (ra): 0x0	x2 (sp): 0x0	x3 (gp): 0x0	
+x0 (zero): 0x0	x1 (ra): 0x0	x2 (sp): 0x7FFFEFFC	x3 (gp): 0x10008000	
 x4 (tp): 0x0	x5 (t0): 0x3EC	x6 (t1): 0x0	x7 (t2): 0x4	
 x8 (s0): 0x0	x9 (s1): 0x0	x10 (a0): 0x3E8	x11 (a1): 0x0	
 x12 (a2): 0x0	x13 (a3): 0x0	x14 (a4): 0x0	x15 (a5): 0x0	
@@ -582,22 +377,15 @@ x16 (a6): 0x0	x17 (a7): 0x0	x18 (s2): 0x0	x19 (s3): 0x0
 x20 (s4): 0x0	x21 (s5): 0x0	x22 (s6): 0x0	x23 (s7): 0x0	
 x24 (s8): 0x0	x25 (s9): 0x0	x26 (s10): 0x0	x27 (s11): 0x0	
 x28 (t3): 0x0	x29 (t4): 0x0	x30 (t5): 0x0	x31 (t6): 0x0	
----------------------- Memory Content: ------------------------
 
+---------------------- Memory Content: ------------------------
 1000: 0x61	1001: 0x62	1002: 0x63	1003: 0x64	1004: 0x0	1005: 0x0	1006: 0x0	
 ---------------------------------------------------------------
-beq t3 zero Break (beq)hereeeeee ya ....beq
-beq
-here1
-here2
-here3
-here4
-here5
-here6
-here777777
+
+Instruction: beq t3 zero Break 
 Program Counter: 0x278
 --------------------- Registers Content: ----------------------
-x0 (zero): 0x0	x1 (ra): 0x0	x2 (sp): 0x0	x3 (gp): 0x0	
+x0 (zero): 0x0	x1 (ra): 0x0	x2 (sp): 0x7FFFEFFC	x3 (gp): 0x10008000	
 x4 (tp): 0x0	x5 (t0): 0x3EC	x6 (t1): 0x0	x7 (t2): 0x4	
 x8 (s0): 0x0	x9 (s1): 0x0	x10 (a0): 0x3E8	x11 (a1): 0x0	
 x12 (a2): 0x0	x13 (a3): 0x0	x14 (a4): 0x0	x15 (a5): 0x0	
@@ -605,22 +393,15 @@ x16 (a6): 0x0	x17 (a7): 0x0	x18 (s2): 0x0	x19 (s3): 0x0
 x20 (s4): 0x0	x21 (s5): 0x0	x22 (s6): 0x0	x23 (s7): 0x0	
 x24 (s8): 0x0	x25 (s9): 0x0	x26 (s10): 0x0	x27 (s11): 0x0	
 x28 (t3): 0x0	x29 (t4): 0x0	x30 (t5): 0x0	x31 (t6): 0x0	
----------------------- Memory Content: ------------------------
 
+---------------------- Memory Content: ------------------------
 1000: 0x61	1001: 0x62	1002: 0x63	1003: 0x64	1004: 0x0	1005: 0x0	1006: 0x0	
 ---------------------------------------------------------------
-addi a0 t2 0 (addi)hereeeeee ya ....addi
-addi
-here1
-here2
-here3
-here4
-here5
-here6
-here777777
+
+Instruction: addi a0 t2 0 
 Program Counter: 0x27C
 --------------------- Registers Content: ----------------------
-x0 (zero): 0x0	x1 (ra): 0x0	x2 (sp): 0x0	x3 (gp): 0x0	
+x0 (zero): 0x0	x1 (ra): 0x0	x2 (sp): 0x7FFFEFFC	x3 (gp): 0x10008000	
 x4 (tp): 0x0	x5 (t0): 0x3EC	x6 (t1): 0x0	x7 (t2): 0x4	
 x8 (s0): 0x0	x9 (s1): 0x0	x10 (a0): 0x4	x11 (a1): 0x0	
 x12 (a2): 0x0	x13 (a3): 0x0	x14 (a4): 0x0	x15 (a5): 0x0	
@@ -628,16 +409,15 @@ x16 (a6): 0x0	x17 (a7): 0x0	x18 (s2): 0x0	x19 (s3): 0x0
 x20 (s4): 0x0	x21 (s5): 0x0	x22 (s6): 0x0	x23 (s7): 0x0	
 x24 (s8): 0x0	x25 (s9): 0x0	x26 (s10): 0x0	x27 (s11): 0x0	
 x28 (t3): 0x0	x29 (t4): 0x0	x30 (t5): 0x0	x31 (t6): 0x0	
----------------------- Memory Content: ------------------------
 
+---------------------- Memory Content: ------------------------
 1000: 0x61	1001: 0x62	1002: 0x63	1003: 0x64	1004: 0x0	1005: 0x0	1006: 0x0	
 ---------------------------------------------------------------
-fence (fence)hereeeeee ya ....fence
-fence
-here1
+
+Instruction: fence 
 Program Counter: 0x27C
 --------------------- Registers Content: ----------------------
-x0 (zero): 0x0	x1 (ra): 0x0	x2 (sp): 0x0	x3 (gp): 0x0	
+x0 (zero): 0x0	x1 (ra): 0x0	x2 (sp): 0x7FFFEFFC	x3 (gp): 0x10008000	
 x4 (tp): 0x0	x5 (t0): 0x3EC	x6 (t1): 0x0	x7 (t2): 0x4	
 x8 (s0): 0x0	x9 (s1): 0x0	x10 (a0): 0x4	x11 (a1): 0x0	
 x12 (a2): 0x0	x13 (a3): 0x0	x14 (a4): 0x0	x15 (a5): 0x0	
@@ -645,7 +425,8 @@ x16 (a6): 0x0	x17 (a7): 0x0	x18 (s2): 0x0	x19 (s3): 0x0
 x20 (s4): 0x0	x21 (s5): 0x0	x22 (s6): 0x0	x23 (s7): 0x0	
 x24 (s8): 0x0	x25 (s9): 0x0	x26 (s10): 0x0	x27 (s11): 0x0	
 x28 (t3): 0x0	x29 (t4): 0x0	x30 (t5): 0x0	x31 (t6): 0x0	
----------------------- Memory Content: ------------------------
 
+---------------------- Memory Content: ------------------------
 1000: 0x61	1001: 0x62	1002: 0x63	1003: 0x64	1004: 0x0	1005: 0x0	1006: 0x0	
 ---------------------------------------------------------------
+
